@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "solutions": "Soluciones",
+    "platform": "Plataforma",
+    "company": "Compañía",
+    "contact": "Contacto",
+    "talk": "Hablar con el equipo"
+  },
+  "hero": {
+    "badge": "INGENIERÍA PARA EL ENTRETENIMIENTO",
+    "title_part1": "Software, automatización e IA<br> que impulsan la",
+    "title_gradient": "industria musical",
+    "desc": "SONARA crea software a medida, plataformas SaaS, herramientas de IA y sistemas operativos para sellos discográficos, recintos, artistas y organizaciones de eventos en vivo. No hacemos música: construimos la tecnología que hace a la industria más inteligente.",
+    "btn_explore": "Explorar soluciones",
+    "btn_demo": "Ver demo de la plataforma"
+  },
+  "platform": {
+    "badge": "NUESTRA EXPERIENCIA",
+    "title": "Deep tech para el entretenimiento",
+    "sub": "Ingeniería de extremo a extremo, desde plugins de audio hasta inteligencia empresarial",
+    "c1_title": "Software a Medida",
+    "c1_desc": "Plataformas adaptadas, herramientas internas y sistemas de gestión de artistas y sellos construidos para escalar.",
+    "c2_title": "Plataformas SaaS",
+    "c2_desc": "Soluciones B2B multi-tenant para emisión de boletos, coordinación de recintos y logística de giras.",
+    "c3_title": "Herramientas de IA",
+    "c3_desc": "Automatización inteligente, analíticas y flujos de trabajo de IA generativa para operaciones repetitivas.",
+    "c4_title": "Datos e Inteligencia",
+    "c4_desc": "Inteligencia de negocios y analítica predictiva para sellos, promotores y gestión de derechos.",
+    "c5_title": "Software y Plugins de Audio",
+    "c5_desc": "Plugins VST/AU, herramientas creativas y sistemas de audio en tiempo real para productores.",
+    "c6_title": "Sistemas de Operaciones",
+    "c6_desc": "Programación automatizada, coordinación de recursos y columnas vertebrales operativas para eventos en vivo."
+  },
+  "solutions": {
+    "badge": "SOLUCIONES DEL MUNDO REAL",
+    "title": "Construido para operaciones de entretenimiento",
+    "c1_title": "Gestión de Artistas y Sellos",
+    "c1_desc": "Dashboards centralizados, regalías, flujos de lanzamiento, analíticas de roster.",
+    "c2_title": "Operaciones de Recintos",
+    "c2_desc": "Software integral para propietarios de recintos, promotores y logística de producción.",
+    "c3_title": "IA para Creadores",
+    "c3_desc": "Etiquetado inteligente, enriquecimiento de metadatos, organización automatizada de sesiones.",
+    "c4_title": "Herramientas de Analítica",
+    "c4_desc": "Almacenamiento de datos, analítica de streaming, dashboards en tiempo real para sellos.",
+    "c5_title": "Tecnología de Audiencia",
+    "c5_desc": "Admisión inteligente, motores de lealtad, integraciones RFID y control de acceso.",
+    "c6_title": "Sistemas Internos",
+    "c6_desc": "ERPs personalizados para productoras, contabilidad de giras e inventario."
+  },
+  "company": {
+    "badge": "ECOSISTEMA",
+    "title": "Con la confianza de líderes del entretenimiento",
+    "desc": "SONARA colabora con sellos, equipos de management, recintos y promotores para construir la infraestructura detrás del negocio musical moderno.",
+    "list": {
+      "t1": "🎤 Sellos discográficos",
+      "t2": "🎧 Artistas y productores",
+      "t3": "📈 Management de artistas",
+      "t4": "🏟️ Propietarios de recintos",
+      "t5": "🎫 Promotores de conciertos",
+      "t6": "⚙️ Productoras",
+      "t7": "🎬 Organizaciones de eventos",
+      "t8": "💼 Empresas de entretenimiento"
+    },
+    "testim_title": "Entretenimiento impulsado por datos",
+    "testim_desc": "\"SONARA convirtió nuestra coordinación manual de recintos en una plataforma inteligente en tiempo real. Operaciones un 63% más rápidas.\"",
+    "testim_author": "— Director de Operaciones, promotor internacional"
+  },
+  "ai": {
+    "title": "Sistemas de automatización para operaciones repetitivas",
+    "desc": "Reduce la carga manual, elimina los silos de datos y potencia la productividad con agentes de IA construidos para flujos de trabajo de entretenimiento.",
+    "chk1": "Conciliación inteligente de boletos",
+    "chk2": "Reportes automáticos de regalías",
+    "chk3": "Automatización logística de giras"
+  },
+  "not": {
+    "title": "Pura ingeniería de software",
+    "desc": "SONARA es una empresa de tecnología — no una agencia creativa, estudio, sello o fabricante de hardware. No producimos música, construimos las herramientas que empoderan a toda la industria.",
+    "n1": "NO es un estudio de música",
+    "n2": "NO es una agencia creativa",
+    "n3": "NO es un sello discográfico",
+    "n4": "NO es fabricante de hardware",
+    "n5": "NO es empresa de instalaciones AV",
+    "n6": "NO es empresa de backline",
+    "ok": "✔ Somos una empresa de ingeniería de software y tecnología especializada en entretenimiento."
+  },
+  "contact": {
+    "title": "¿Listo para modernizar tus operaciones de entretenimiento?",
+    "desc": "Desde programación con IA hasta dashboards personalizados para sellos — construyamos lo que la industria necesita a continuación.",
+    "btn_contact": "Contactar al equipo",
+    "btn_strategy": "Llamada estratégica",
+    "trusted": "Con la confianza de líderes del entretenimiento en todo el mundo"
+  },
+  "footer": {
+    "desc": "Software, automatización e IA para la industria de la música y el entretenimiento.",
+    "col1_title": "Soluciones",
+    "col1_l1": "Sistemas de Artistas y Sellos",
+    "col1_l2": "Software para recintos",
+    "col1_l3": "Automatización con IA",
+    "col1_l4": "Analítica y BI",
+    "col2_title": "Compañía",
+    "col2_l1": "Acerca de SONARA",
+    "col2_l2": "Cultura de ingeniería",
+    "col2_l3": "Carreras",
+    "col2_l4": "Prensa",
+    "col3_title": "Contacto",
+    "col3_l1": "hello@sonara.tech",
+    "col3_l2": "Ingeniería global",
+    "copy": "© 2025 SONARA — Ingeniería de Software para el Entretenimiento. Todos los derechos reservados.",
+    "tagline": "Construido para sellos, recintos y creadores"
+  }
+}

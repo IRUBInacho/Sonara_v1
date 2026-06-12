@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "home": "Home",
+    "solutions": "Solutions",
+    "platform": "Platform",
+    "company": "Company",
+    "contact": "Contact",
+    "talk": "Talk to team"
+  },
+  "hero": {
+    "badge": "ENGINEERING FOR ENTERTAINMENT",
+    "title_part1": "Software, automation & AI<br> that powers the",
+    "title_gradient": "music business",
+    "desc": "SONARA builds custom software, SaaS platforms, AI tools, and operational systems for record labels, venues, artists, and live event organizations. We don't make music — we build the technology that makes the industry smarter.",
+    "btn_explore": "Explore solutions",
+    "btn_demo": "See platform demo"
+  },
+  "platform": {
+    "badge": "CORE EXPERTISE",
+    "title": "Deep tech for entertainment",
+    "sub": "End‑to‑end engineering, from audio plugins to enterprise intelligence",
+    "c1_title": "Custom Software",
+    "c1_desc": "Tailored platforms, internal tools, artist & label management systems built for scale.",
+    "c2_title": "SaaS Platforms",
+    "c2_desc": "Multi-tenant B2B solutions for ticketing, venue coordination, and touring logistics.",
+    "c3_title": "AI-Powered Tools",
+    "c3_desc": "Intelligent automation, analytics, and generative AI workflows for repetitive ops.",
+    "c4_title": "Data & Intelligence",
+    "c4_desc": "Business intelligence, predictive analytics for labels, promoters, and rights management.",
+    "c5_title": "Audio Software & Plugins",
+    "c5_desc": "VST/AU plugins, creative tools, and realtime audio systems for producers.",
+    "c6_title": "Scheduling & Ops Systems",
+    "c6_desc": "Automated scheduling, resource coordination, live event operational backbones."
+  },
+  "solutions": {
+    "badge": "REAL-WORLD SOLUTIONS",
+    "title": "Built for entertainment operations",
+    "c1_title": "Artist & Label Management",
+    "c1_desc": "Centralized dashboards, royalties, release workflows, roster analytics.",
+    "c2_title": "Venue & Live Event Ops",
+    "c2_desc": "End-to-end software for venue owners, promoters, and production logistics.",
+    "c3_title": "AI for Creative Workflows",
+    "c3_desc": "Smart tagging, metadata enrichment, automated session organization.",
+    "c4_title": "Analytics & BI Tools",
+    "c4_desc": "Data warehousing, streaming analytics, real-time dashboards for labels.",
+    "c5_title": "Audience & Ticketing Tech",
+    "c5_desc": "Smart admission, loyalty engines, RFID integrations, and access control.",
+    "c6_title": "Internal Ops Systems",
+    "c6_desc": "Custom ERPs for production companies, tour accounting, inventory."
+  },
+  "company": {
+    "badge": "ECOSYSTEM",
+    "title": "Trusted by music & live entertainment leaders",
+    "desc": "SONARA partners with labels, management teams, venues, and promoters to build the infrastructure behind modern music business.",
+    "list": {
+      "t1": "🎤 Record labels",
+      "t2": "🎧 Artists & producers",
+      "t3": "📈 Artist management",
+      "t4": "🏟️ Venue owners",
+      "t5": "🎫 Concert promoters",
+      "t6": "⚙️ Production companies",
+      "t7": "🎬 Live event orgs",
+      "t8": "💼 Entertainment cos"
+    },
+    "testim_title": "Data-driven entertainment",
+    "testim_desc": "\"SONARA turned our manual venue coordination into a real-time intelligent platform. 63% faster operations.\"",
+    "testim_author": "— Operations Director, international promoter"
+  },
+  "ai": {
+    "title": "Automation systems for repetitive industry operations",
+    "desc": "Reduce manual overhead, eliminate data silos, and supercharge productivity with AI agents built for entertainment workflows.",
+    "chk1": "Smart ticketing reconciliation",
+    "chk2": "Royalty auto-reporting",
+    "chk3": "Tour logistics automation"
+  },
+  "not": {
+    "title": "Pure software engineering",
+    "desc": "SONARA is a technology company — not a creative agency, studio, label, or hardware business. We don't produce music, but we build the tools that empower the entire industry.",
+    "n1": "NOT a music studio",
+    "n2": "NOT a creative agency",
+    "n3": "NOT a record label",
+    "n4": "NOT a hardware manufacturer",
+    "n5": "NOT an AV installation company",
+    "n6": "NOT a backline business",
+    "ok": "✔ We are a software engineering & technology company specialized in entertainment."
+  },
+  "contact": {
+    "title": "Ready to modernize your entertainment operations?",
+    "desc": "From AI-powered scheduling to custom label dashboards — let's build what the industry needs next.",
+    "btn_contact": "Contact engineering team",
+    "btn_strategy": "Strategy call",
+    "trusted": "Trusted by entertainment leaders worldwide"
+  },
+  "footer": {
+    "desc": "Software, automation and AI for the music & entertainment industry.",
+    "col1_title": "Solutions",
+    "col1_l1": "Artist & Label systems",
+    "col1_l2": "Venue software",
+    "col1_l3": "AI automation",
+    "col1_l4": "Analytics & BI",
+    "col2_title": "Company",
+    "col2_l1": "About SONARA",
+    "col2_l2": "Engineering culture",
+    "col2_l3": "Careers",
+    "col2_l4": "Press",
+    "col3_title": "Contact",
+    "col3_l1": "hello@sonara.tech",
+    "col3_l2": "Global engineering",
+    "copy": "© 2025 SONARA — Software Engineering for Entertainment. All rights reserved.",
+    "tagline": "Built for labels, venues, and creators"
+  }
+}

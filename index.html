@@ -560,6 +560,37 @@
             background: #c9a03d;
             margin: 20px auto;
         }
+
+        /* Mobile scroll highlights */
+        @media (max-width: 800px) {
+            .badge.scroll-hover {
+                border-color: #c9a03d;
+            }
+            .card.scroll-hover {
+                border-color: #c9a03d;
+                transform: translateY(-4px);
+                box-shadow: 0 12px 32px rgba(201, 160, 61, 0.08);
+            }
+            .card.scroll-hover i {
+                color: #c9a03d;
+            }
+            .client-item.scroll-hover {
+                border-color: #c9a03d;
+                background: #1a1a1a;
+            }
+            .not-card.scroll-hover {
+                border-color: #c9a03d;
+                background: #1a1a1a;
+            }
+            .tech-badge.scroll-hover {
+                border-color: #c9a03d;
+                background: rgba(201, 160, 61, 0.1);
+                color: #c9a03d;
+            }
+            .highlight-block.scroll-hover {
+                border-color: #c9a03d;
+            }
+        }
     </style>
 </head>
 
@@ -582,7 +613,8 @@
                     <span class="lang-sep">|</span>
                     <a href="#" class="lang-btn" data-lang="en">EN</a>
                 </div>
-                <a href="https://mixbus.vercel.app/" target="_blank" class="btn-outline" style="padding: 8px 20px; color: #c9a03d; border-color: #c9a03d; font-weight: 700;">
+                <a href="https://mixbus.vercel.app/" target="_blank" class="btn-outline"
+                    style="padding: 8px 20px; color: #c9a03d; border-color: #c9a03d; font-weight: 700;">
                     MIXBUS
                 </a>
                 <a href="#contact" class="btn-outline" style="padding: 8px 20px;">
@@ -885,6 +917,31 @@
     </footer>
 
     <script src="js/i18n.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Highlight elements on scroll for mobile devices
+            if (window.innerWidth <= 800) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '-30% 0px -40% 0px', // Trigger near the center of the viewport
+                    threshold: 0
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('scroll-hover');
+                        } else {
+                            entry.target.classList.remove('scroll-hover');
+                        }
+                    });
+                }, observerOptions);
+
+                const elementsToObserve = document.querySelectorAll('.card, .badge, .client-item, .not-card, .tech-badge, .highlight-block');
+                elementsToObserve.forEach(el => observer.observe(el));
+            }
+        });
+    </script>
 </body>
 
 </html>

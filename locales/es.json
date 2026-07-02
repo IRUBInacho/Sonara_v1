@@ -3,7 +3,7 @@
     "home": "Inicio",
     "solutions": "Soluciones",
     "platform": "Plataforma",
-    "company": "Compañía",
+    "team": "Nuestro equipo",
     "contact": "Contacto",
     "talk": "Hablar con el equipo"
   },
@@ -61,7 +61,20 @@
       "t6": "⚙️ Productoras",
       "t7": "🎬 Organizaciones de eventos",
       "t8": "💼 Empresas de entretenimiento"
-    },
+    }
+  },
+  "team": {
+    "badge": "NUESTRO EQUIPO",
+    "title": "Las personas detrás de SONARA",
+    "sub": "Ingeniería de software y experiencia en la industria musical, unidos para construir el futuro del entretenimiento.",
+    "m1_name": "Ignacio",
+    "m1_role": "Music Business & Dev",
+    "m1_exp": "+6 años de experiencia",
+    "m1_tags": "Producción musical · Music Business · Gestión de eventos · Junior Dev",
+    "m2_name": "Rodrigo",
+    "m2_role": "Senior Dev & Tech Lead",
+    "m2_exp": "+7 años de experiencia",
+    "m2_tags": "Desarrollo SaaS · Healthatom · Líder de equipos tech · Senior Dev"
   },
   "ai": {
     "title": "Sistemas de automatización para operaciones repetitivas",

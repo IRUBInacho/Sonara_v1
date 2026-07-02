@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Background: modern rounded rectangle -->
+  <rect width="512" height="512" rx="128" fill="#0a0a0a"/>
+  <!-- Subtle inner border for premium appearance -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="none" stroke="#2d2d2d" stroke-width="8" opacity="0.6"/>
+  
+  <!-- Stylized geometric 'S' representing sound, software, and AI -->
+  <path d="M 360,190 C 360,140 310,110 256,110 C 202,110 152,140 152,190 C 152,260 360,250 360,320 C 360,370 310,400 256,400 C 202,400 152,370 152,320" 
+        fill="none" 
+        stroke="#f0f0f0" 
+        stroke-width="56" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+        
+  <!-- Golden Dot (matching SONARA.) -->
+  <circle cx="390" cy="380" r="32" fill="#c9a03d"/>
+</svg>

@@ -162,6 +162,23 @@
             align-items: center;
         }
 
+        /* Botón hamburguesa - oculto en desktop */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #f0f0f0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        /* sidebar y overlay - siempre ocultos en desktop (son fixed pero sin .active) */
+        .sidebar-overlay,
+        .mobile-sidebar {
+            display: none;
+        }
+
         /* botones */
         .btn-primary {
             background: transparent;
@@ -407,6 +424,7 @@
 
             /* Overlay de fondo */
             .sidebar-overlay {
+                display: block;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -427,6 +445,7 @@
 
             /* Contenedor del Sidebar Desplegable */
             .mobile-sidebar {
+                display: flex !important;
                 position: fixed;
                 top: 0;
                 right: -280px;
@@ -436,7 +455,6 @@
                 border-left: 1px solid #2d2d2d;
                 box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
                 z-index: 1000;
-                display: flex;
                 flex-direction: column;
                 padding: 32px 24px;
                 transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -744,37 +762,9 @@
                     <i class="fab fa-whatsapp"></i> <span data-i18n="nav.talk">Hablar con el equipo</span>
                 </a>
             </div>
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" style="display: none;">
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
                 <i class="fas fa-bars"></i>
             </button>
-        </div>
-
-        <!-- Sidebar Móvil -->
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <div class="mobile-sidebar" id="mobileSidebar">
-            <div class="sidebar-header">
-                <div class="logo" style="font-size: 1.5rem;">SONARA<span>.</span></div>
-                <button class="sidebar-close" id="sidebarClose" aria-label="Cerrar menú">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="sidebar-links">
-                <a href="#home" data-i18n="nav.home"><i class="fas fa-home"></i> Inicio</a>
-                <a href="#solutions" data-i18n="nav.solutions"><i class="fas fa-tools"></i> Soluciones</a>
-                <a href="#platform" data-i18n="nav.platform"><i class="fas fa-cube"></i> Plataforma</a>
-                <a href="#team" data-i18n="nav.team"><i class="fas fa-users"></i> Nuestro equipo</a>
-                <a href="#contact" data-i18n="nav.contact"><i class="fas fa-envelope"></i> Contacto</a>
-            </div>
-            <div class="sidebar-actions">
-                <a href="https://mixbus.vercel.app/" target="_blank" class="btn-outline"
-                    style="text-align: center; color: #c9a03d; border-color: #c9a03d; font-weight: 700;">
-                    MIXBUS
-                </a>
-                <a href="https://wa.me/56986314114" target="_blank" class="btn-outline" style="text-align: center;">
-                    <i class="fab fa-whatsapp"></i> <span data-i18n="nav.talk">Hablar con el equipo</span>
-                </a>
-            </div>
-        </div>
         </div>
 
         <!-- hero -->
@@ -1103,6 +1093,33 @@
             </div>
         </div>
     </footer>
+
+    <!-- Sidebar Móvil (fuera del container, fixed) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <div class="logo" style="font-size: 1.5rem;">SONARA<span>.</span></div>
+            <button class="sidebar-close" id="sidebarClose" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-links">
+            <a href="#home" data-i18n="nav.home"><i class="fas fa-home"></i> Inicio</a>
+            <a href="#solutions" data-i18n="nav.solutions"><i class="fas fa-tools"></i> Soluciones</a>
+            <a href="#platform" data-i18n="nav.platform"><i class="fas fa-cube"></i> Plataforma</a>
+            <a href="#team" data-i18n="nav.team"><i class="fas fa-users"></i> Nuestro equipo</a>
+            <a href="#contact" data-i18n="nav.contact"><i class="fas fa-envelope"></i> Contacto</a>
+        </div>
+        <div class="sidebar-actions">
+            <a href="https://mixbus.vercel.app/" target="_blank" class="btn-outline"
+                style="text-align: center; color: #c9a03d; border-color: #c9a03d; font-weight: 700;">
+                MIXBUS
+            </a>
+            <a href="https://wa.me/56986314114" target="_blank" class="btn-outline" style="text-align: center;">
+                <i class="fab fa-whatsapp"></i> <span data-i18n="nav.talk">Hablar con el equipo</span>
+            </a>
+        </div>
+    </div>
 
     <script src="js/i18n.js"></script>
     <script>

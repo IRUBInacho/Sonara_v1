@@ -48,6 +48,7 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: clip;
         }
 
         body {
@@ -56,7 +57,7 @@
             color: var(--text-primary);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            overflow-x: clip;
         }
 
         ::selection {
@@ -96,7 +97,16 @@
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
+        }
+
+        .grid-2cols > *,
+        .grid-3cols > *,
+        .solutions-console > *,
+        .ecosystem-grid > *,
+        .not-grid > *,
+        .footer-grid > * {
+            min-width: 0;
         }
 
         /* texto secundario */
@@ -188,6 +198,8 @@
             overflow: hidden;
             min-height: 100vh;
             min-height: 100svh;
+            min-height: 100dvh;
+            padding-top: env(safe-area-inset-top);
             display: flex;
             flex-direction: column;
             background:
@@ -1287,6 +1299,7 @@
         .team-avatar {
             width: 120px;
             height: 120px;
+            aspect-ratio: 1 / 1;
             border-radius: 50%;
             overflow: hidden;
             margin: 0 auto 22px;
@@ -1701,14 +1714,22 @@
                 right: -300px;
                 width: 300px;
                 max-width: 85vw;
-                height: 100%;
+                height: 100vh;
+                height: 100dvh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
                 background: #131317;
                 border-left: 1px solid rgba(255, 255, 255, 0.1);
                 box-shadow: -12px 0 32px rgba(0, 0, 0, 0.55);
                 z-index: 1002;
                 flex-direction: column;
-                padding: 24px;
+                padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) 24px;
                 transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .mobile-sidebar .lang-btn {
+                min-width: 44px;
+                min-height: 44px;
             }
 
             .mobile-sidebar.active {
@@ -1813,7 +1834,7 @@
             }
 
             .sol-stage-viewport {
-                height: 250px;
+                height: 290px;
             }
 
             .sol-body-inner {
@@ -1829,32 +1850,27 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            footer .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .band {
                 padding: 72px 0;
             }
 
             .hero {
-                padding: 64px 0 80px;
+                padding: 48px 0 64px;
             }
         }
 
         /* ── Tablet narrow (≤ 768px) ─────────────────────── */
         @media (max-width: 768px) {
-            .grid-2cols,
-            .grid-3cols {
-                grid-template-columns: 1fr;
-            }
-
             .hero h1 {
-                font-size: 2.4rem;
+                font-size: 2.45rem;
             }
 
             .section-title {
                 font-size: 1.75rem;
-            }
-
-            footer .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
 
             /* Resaltado sutil en scroll sin saltos verticales */
@@ -1871,27 +1887,127 @@
             }
         }
 
-        /* ── Mobile (≤ 480px) ────────────────────────────── */
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 16px;
-            }
-
-            .hero {
-                padding: 40px 0 56px;
+        /* ── Mobile standard & large phones (≤ 640px) ────── */
+        @media (max-width: 640px) {
+            .grid-2cols,
+            .grid-3cols,
+            .not-grid {
+                grid-template-columns: 1fr;
             }
 
             .hero h1 {
-                font-size: 1.95rem;
+                font-size: clamp(1.72rem, 7.2vw, 2.25rem);
+                line-height: 1.14;
                 letter-spacing: -0.025em;
+                overflow-wrap: break-word;
+            }
+
+            .hero h1 br {
+                display: none;
+            }
+
+            .section-title {
+                font-size: clamp(1.42rem, 6vw, 1.75rem);
+                overflow-wrap: break-word;
+            }
+
+            .sol-stage-chrome {
+                padding: 12px 14px;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .sol-stage-status {
+                font-size: 0.62rem;
+            }
+
+            .sol-stage-viewport {
+                height: auto;
+                aspect-ratio: 440 / 280;
+                min-height: 205px;
+            }
+
+            .sol-scene {
+                padding: 10px;
+            }
+
+            .sol-row {
+                padding: 16px 12px 16px 16px;
+                min-height: 54px;
+            }
+
+            .sol-row-head {
+                gap: 10px;
+            }
+
+            .sol-title {
+                font-size: 1.05rem;
+                overflow-wrap: break-word;
+            }
+
+            .sol-body-inner {
+                padding-left: 0;
+                margin-top: 4px;
+            }
+
+            .sol-stage-footer {
+                padding: 12px 14px;
+            }
+
+            .sol-stage-caption {
+                font-size: 0.85rem;
+            }
+
+            footer {
+                padding: 48px 0 max(36px, env(safe-area-inset-bottom));
+            }
+
+            footer .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .footer-links {
+                gap: 2px;
+            }
+
+            .footer-links a,
+            .footer-contact-item {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            footer .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        /* ── Mobile compact & standard (360px – 480px) ───── */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+            }
+
+            .hero {
+                padding: 32px 0 48px;
             }
 
             .hero p {
                 font-size: 1rem;
+                margin-bottom: 28px;
             }
 
-            .section-title {
-                font-size: 1.5rem;
+            .badge {
+                max-width: 100%;
+                font-size: 0.68rem;
+                letter-spacing: 0.055em;
+                padding: 6px 12px;
+                gap: 6px;
+                line-height: 1.35;
+                overflow-wrap: break-word;
             }
 
             .section-sub {
@@ -1904,39 +2020,100 @@
             }
 
             .card {
-                padding: 22px 18px;
+                padding: 20px 16px;
             }
 
             .card h3 {
-                font-size: 1.2rem;
+                font-size: 1.16rem;
+            }
+
+            .module-stage {
+                height: auto;
+                aspect-ratio: 300 / 112;
+                min-height: 98px;
+            }
+
+            .team-card {
+                padding: 28px 20px;
+            }
+
+            .team-avatar {
+                width: 104px;
+                height: 104px;
+            }
+
+            .client-badge-list {
+                gap: 8px;
+            }
+
+            .client-item {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+
+            .ai-checks {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+                margin-top: 24px;
+                text-align: left;
+            }
+
+            .not-header {
+                flex-wrap: nowrap;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .not-header i {
+                font-size: 1.35rem;
+                margin-top: 3px;
+            }
+
+            .not-card {
+                padding: 12px 14px;
+            }
+
+            .not-ok {
+                align-items: flex-start;
+            }
+
+            .not-ok i {
+                margin-top: 4px;
             }
 
             .highlight-block,
             .not-container,
             .cta-card {
                 border-radius: 20px;
-                padding: 36px 20px;
+                padding: 32px 18px;
             }
 
-            .not-grid {
-                grid-template-columns: 1fr;
-            }
-
-            footer .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
-
-            footer .footer-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
+            .btn-primary,
+            .btn-outline {
+                white-space: normal;
+                text-align: center;
+                min-height: 48px;
             }
 
             .hero-actions .btn-primary,
             .cta-actions .btn-primary,
             .cta-actions .btn-outline {
                 width: 100%;
+            }
+
+            .cta-trusted {
+                align-items: flex-start;
+                justify-content: center;
+                flex-wrap: wrap;
+                text-align: center;
+            }
+        }
+
+        /* Evitar hover pegajoso en pantallas táctiles */
+        @media (hover: none) {
+            .card:hover {
+                transform: none;
             }
         }
 
@@ -2627,7 +2804,7 @@
                     <!-- Miembro 1 -->
                     <div class="card team-card">
                         <div class="team-avatar">
-                            <img src="img/ignacio-rubi.jpg" alt="Ignacio Rubí">
+                            <img src="img/ignacio-rubi.jpg" alt="Ignacio Rubí" width="800" height="800" loading="lazy" decoding="async">
                         </div>
                         <h3 data-i18n="team.m1_name">Ignacio Rubí</h3>
                         <p class="team-role" data-i18n="team.m1_role">Music Business &amp; Dev</p>
@@ -2639,7 +2816,7 @@
                     <!-- Miembro 2 -->
                     <div class="card team-card">
                         <div class="team-avatar">
-                            <img src="img/gabriel-pezoa.jpg" alt="Gabriel Pezoa">
+                            <img src="img/gabriel-pezoa.jpg" alt="Gabriel Pezoa" width="490" height="490" loading="lazy" decoding="async">
                         </div>
                         <h3 data-i18n="team.m2_name">Gabriel Pezoa</h3>
                         <p class="team-role" data-i18n="team.m2_role">Senior Dev &amp; Tech Lead</p>

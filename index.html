@@ -21,25 +21,58 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome 6 (free icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome 6.7.2 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
+        :root {
+            --surface-base: #09090b;
+            --surface-elevated: #141418;
+            --surface-warm: #161411;
+            --surface-card: #1d1d22;
+            --surface-card-hover: #24242a;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.14);
+            --gold: #c9a03d;
+            --gold-bright: #ddb44f;
+            --text-primary: #f2f2f4;
+            --text-secondary: #aeafb5;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            /* fondo principal */
-            color: #f0f0f0;
-            /* texto principal */
+            background-color: var(--surface-base);
+            color: var(--text-primary);
             line-height: 1.5;
-            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: rgba(201, 160, 61, 0.3);
+            color: #f0f0f0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        section[id],
+        header[id] {
+            scroll-margin-top: 24px;
         }
 
         /* custom scrollbar en tonos grises con toque dorado */
@@ -48,17 +81,16 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #131313;
+            background: #111114;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #2d2d2d;
+            background: #2e2e35;
             border-radius: 8px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #c9a03d;
-            /* dorado sutil */
+            background: var(--gold);
         }
 
         .container {
@@ -69,24 +101,130 @@
 
         /* texto secundario */
         .text-secondary {
-            color: #a8a8a8;
+            color: var(--text-secondary);
+        }
+
+        /* ── Bandas full-bleed para contraste real entre secciones ── */
+        .band {
+            position: relative;
+            padding: 96px 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .band--base {
+            background-color: var(--surface-base);
+        }
+
+        .band--elevated {
+            background: linear-gradient(180deg, #15151a 0%, #121216 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .band--warm {
+            background: radial-gradient(ellipse 80% 70% at 85% 50%, rgba(201, 160, 61, 0.075) 0%, transparent 65%),
+                linear-gradient(180deg, #171511 0%, #13120f 100%);
+            box-shadow: inset 0 1px 0 rgba(201, 160, 61, 0.1);
+        }
+
+        .band--cta {
+            background: radial-gradient(ellipse 70% 80% at 50% 0%, rgba(201, 160, 61, 0.11) 0%, transparent 70%),
+                linear-gradient(180deg, #141310 0%, #0d0d10 100%);
+            box-shadow: inset 0 1px 0 rgba(201, 160, 61, 0.14);
+        }
+
+        .band--solutions {
+            background: radial-gradient(ellipse 55% 45% at 15% 0%, rgba(201, 160, 61, 0.05) 0%, transparent 70%),
+                var(--surface-base);
+        }
+
+        .section-header-center {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header-center .section-title {
+            margin: 16px 0 12px;
+        }
+
+        .section-header-center .section-sub {
+            margin: 0 auto;
+        }
+
+        .section-header-left {
+            margin-bottom: 40px;
+        }
+
+        .section-header-left .section-title {
+            margin: 16px 0 0;
         }
 
         .badge {
-            display: inline-block;
-            background: #1f1f1f;
-            border: 1px solid #2d2d2d;
-            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 9999px;
             padding: 6px 14px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            letter-spacing: -0.2px;
-            color: #a8a8a8;
-            transition: border 0.2s;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #c8c9ce;
+            transition: border-color 0.2s ease;
+        }
+
+        .badge i {
+            color: var(--gold);
         }
 
         .badge:hover {
-            border-color: #c9a03d;
+            border-color: rgba(201, 160, 61, 0.65);
+        }
+
+        /* ── Hero Stage (Full-bleed + Animated Acoustic/AI Canvas) ── */
+        .hero-stage {
+            position: relative;
+            overflow: hidden;
+            min-height: min(84vh, 760px);
+            display: flex;
+            flex-direction: column;
+            background:
+                radial-gradient(ellipse 75% 85% at 78% 45%, rgba(201, 160, 61, 0.22) 0%, rgba(201, 160, 61, 0.07) 42%, transparent 74%),
+                radial-gradient(ellipse 65% 70% at 18% 85%, rgba(201, 160, 61, 0.11) 0%, transparent 65%),
+                radial-gradient(ellipse 60% 65% at 25% 10%, rgba(110, 125, 165, 0.14) 0%, transparent 65%),
+                linear-gradient(180deg, #0b0d12 0%, #110f0d 55%, #0a0a0e 100%);
+            border-bottom: 1px solid rgba(201, 160, 61, 0.2);
+        }
+
+        /* Canvas interactivo de ondas sonoras + nodos de IA */
+        .hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Máscara sutil localizada detrás del texto para proteger legibilidad sin apagar el canvas */
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background:
+                radial-gradient(ellipse 56% 68% at 26% 54%, rgba(9, 9, 13, 0.62) 0%, rgba(9, 9, 13, 0.26) 58%, transparent 100%),
+                linear-gradient(180deg, rgba(9, 9, 13, 0.28) 0%, transparent 20%, transparent 82%, rgba(9, 9, 13, 0.78) 100%);
+        }
+
+        .hero-stage > .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         /* header / nav */
@@ -95,155 +233,209 @@
             justify-content: space-between;
             align-items: center;
             padding: 24px 0;
-            flex-wrap: wrap;
             gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -0.02em;
-            color: #f0f0f0;
+            color: var(--text-primary);
+            flex-shrink: 0;
         }
 
         .logo span {
-            color: #c9a03d;
-            /* acento dorado cálido */
+            color: var(--gold);
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 28px;
             font-weight: 500;
         }
 
         .nav-links a {
-            color: #a8a8a8;
+            color: #b4b5bc;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.2s ease;
             font-size: 0.95rem;
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
-            color: #c9a03d;
+            color: var(--text-primary);
         }
 
         /* language switcher */
         .lang-switcher {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 2px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-right: 16px;
         }
 
         .lang-btn {
-            color: #555;
+            color: #8c8e96;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.2s ease;
             cursor: pointer;
+            padding: 6px 8px;
+            min-width: 34px;
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
         }
 
         .lang-btn.active {
-            color: #f0f0f0;
+            color: var(--text-primary);
         }
 
         .lang-btn:hover {
-            color: #c9a03d;
+            color: var(--gold);
         }
 
         .lang-sep {
-            color: #333;
+            color: #4a4c54;
+            user-select: none;
         }
 
         .nav-actions {
             display: flex;
             align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
         }
 
         /* Botón hamburguesa - oculto en desktop */
         .menu-toggle {
             display: none;
             background: transparent;
-            border: none;
-            color: #f0f0f0;
-            font-size: 1.5rem;
+            border: 1px solid transparent;
+            color: var(--text-primary);
+            font-size: 1.4rem;
             cursor: pointer;
-            transition: color 0.2s;
+            min-width: 44px;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transition: color 0.2s ease, border-color 0.2s ease;
         }
 
-        /* sidebar y overlay - siempre ocultos en desktop (son fixed pero sin .active) */
+        /* sidebar y overlay - siempre ocultos en desktop */
         .sidebar-overlay,
         .mobile-sidebar {
             display: none;
         }
 
         /* botones */
-        .btn-primary {
-            background: transparent;
-            border: 1.5px solid #e0e0e0;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 600;
+        .btn-primary,
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 9999px;
             font-size: 0.95rem;
-            color: #f0f0f0;
             cursor: pointer;
-            transition: all 0.25s ease;
-            display: inline-block;
             text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            border: 1.5px solid var(--gold);
+            padding: 12px 28px;
+            font-weight: 600;
+            color: #09090b;
+            box-shadow: 0 6px 24px rgba(201, 160, 61, 0.22);
         }
 
         .btn-primary:hover {
-            background: #c9a03d;
-            border-color: #c9a03d;
-            color: #0a0a0a;
+            background: var(--gold-bright);
+            border-color: var(--gold-bright);
+            color: #09090b;
+            box-shadow: 0 8px 28px rgba(201, 160, 61, 0.32);
         }
 
         .btn-outline {
-            background: transparent;
-            border: 1.5px solid #2d2d2d;
-            padding: 10px 24px;
-            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid rgba(255, 255, 255, 0.16);
+            padding: 11px 24px;
             font-weight: 500;
-            color: #a8a8a8;
-            transition: all 0.2s;
-            display: inline-block;
-            text-decoration: none;
+            color: #e6e6ea;
         }
 
         .btn-outline:hover {
-            border-color: #c9a03d;
-            color: #c9a03d;
-            background: rgba(201, 160, 61, 0.05);
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201, 160, 61, 0.09);
+        }
+
+        .btn-nav {
+            padding: 8px 18px;
+            font-size: 0.9rem;
+        }
+
+        .btn-accent-subtle {
+            color: var(--gold);
+            border-color: rgba(201, 160, 61, 0.55);
+            background: rgba(201, 160, 61, 0.1);
+            font-weight: 600;
+        }
+
+        .btn-accent-subtle:hover {
+            color: #e8c365;
+            border-color: var(--gold);
+            background: rgba(201, 160, 61, 0.18);
+        }
+
+        .btn-primary:active,
+        .btn-outline:active {
+            transform: scale(0.98);
         }
 
         /* hero section */
         .hero {
-            padding: 60px 0 80px 0;
+            padding: 88px 0 108px;
+            margin: auto 0;
+            max-width: 780px;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            line-height: 1.2;
+            line-height: 1.1;
             margin: 24px 0 24px;
-            color: #f0f0f0;
+            color: var(--text-primary);
+            text-wrap: balance;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            color: #a8a8a8;
-            max-width: 700px;
-            margin-bottom: 32px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            color: #c2c3ca;
+            max-width: 650px;
+            margin-bottom: 36px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         /* cards grid */
         .grid-2cols,
         .grid-3cols {
             display: grid;
-            gap: 28px;
+            gap: 24px;
         }
 
         .grid-2cols {
@@ -255,125 +447,1128 @@
         }
 
         .card {
-            background: #1f1f1f;
-            /* fondo terciario tarjetas */
-            border: 1px solid #2d2d2d;
-            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            background: var(--surface-card);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 16px;
             padding: 28px 24px;
-            transition: all 0.25s ease;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 24px rgba(0, 0, 0, 0.22);
+            transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+        }
+
+        /* Tarjetas ligeramente más oscuras en bandas base para contraste limpio */
+        .band--base .card,
+        .band--solutions .card {
+            background: #17171c;
         }
 
         .card:hover {
-            border-color: #c9a03d;
-            background: #262626;
-            transform: translateY(-4px);
+            border-color: rgba(201, 160, 61, 0.65);
+            background: var(--surface-card-hover);
+            transform: translateY(-2px);
         }
 
-        .card i {
-            font-size: 2rem;
-            color: #e0e0e0;
-            /* íconos base gris claro */
+        .card > i {
+            font-size: 1.75rem;
+            color: #e4e4e8;
             margin-bottom: 20px;
-            transition: color 0.2s;
+            transition: color 0.2s ease;
         }
 
-        .card:hover i {
-            color: #c9a03d;
-            /* íconos se tornan dorados al hover */
+        .card:hover > i {
+            color: var(--gold);
         }
 
         .card h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 12px;
-            color: #f0f0f0;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--text-primary);
         }
 
         .card p {
-            color: #a8a8a8;
+            color: var(--text-secondary);
             font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ── Deep Tech Live Engineering Modules (#platform) ── */
+        .platform-grid {
+            perspective: 1100px;
+        }
+
+        .platform-card {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 20px 24px;
+            background: linear-gradient(180deg, #1e1e24 0%, #17171c 100%);
+            transform-style: preserve-3d;
+            transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.18s ease-out, box-shadow 0.25s ease;
+            will-change: transform;
+        }
+
+        /* Borde dorado reactivo siguiendo el cursor (efecto spotlight) */
+        .platform-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(280px circle at var(--mx, -200px) var(--my, -200px),
+                    rgba(232, 194, 97, 0.85) 0%,
+                    rgba(201, 160, 61, 0.28) 42%,
+                    transparent 72%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            z-index: 3;
+        }
+
+        /* Brillo interior sutil bajo el cursor */
+        .platform-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(320px circle at var(--mx, -200px) var(--my, -200px),
+                    rgba(201, 160, 61, 0.11) 0%,
+                    transparent 65%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .platform-grid:hover .platform-card::before {
+            opacity: 1;
+        }
+
+        .platform-card:hover::after {
+            opacity: 1;
+        }
+
+        .platform-card:hover {
+            border-color: rgba(201, 160, 61, 0.45);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 36px rgba(0, 0, 0, 0.38);
+        }
+
+        .platform-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Visor técnico empotrado en la parte superior de cada tarjeta */
+        .module-stage {
+            position: relative;
+            height: 112px;
+            border-radius: 11px;
+            background:
+                radial-gradient(circle at 50% 100%, rgba(201, 160, 61, 0.08) 0%, transparent 70%),
+                #0d0e12;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            margin-bottom: 18px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.25s ease, background-color 0.25s ease;
+        }
+
+        /* Micro-trama de calibración de instrumento */
+        .module-stage::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 16px 16px;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .platform-card:hover .module-stage {
+            border-color: rgba(201, 160, 61, 0.35);
+        }
+
+        .module-tag {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #8f92a0;
+            z-index: 2;
+            pointer-events: none;
+            transition: color 0.25s ease;
+        }
+
+        .module-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 8px rgba(201, 160, 61, 0.85);
+            animation: modLedPulse 2.4s ease-in-out infinite;
+        }
+
+        .platform-card:hover .module-tag {
+            color: #d8be74;
+        }
+
+        .platform-card-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .platform-card-head i {
+            font-size: 1.05rem;
+            color: var(--gold);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: rgba(201, 160, 61, 0.1);
+            border: 1px solid rgba(201, 160, 61, 0.22);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .platform-card:hover .platform-card-head i {
+            background: rgba(201, 160, 61, 0.2);
+            border-color: rgba(201, 160, 61, 0.55);
+            color: #f0ce71;
+        }
+
+        .platform-card-head h3 {
+            margin-bottom: 0;
+            font-size: 1.2rem;
+        }
+
+        .module-svg {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* 1) Módulo Software a Medida: bloques compilando + cursor vivo */
+        .mod-code-line {
+            transform-origin: left center;
+            animation: codeStream 3.6s ease-in-out infinite;
+        }
+
+        .mod-code-line.d2 { animation-delay: 0.45s; }
+        .mod-code-line.d3 { animation-delay: 0.9s; }
+        .mod-code-line.d4 { animation-delay: 1.35s; }
+        .mod-code-line.d5 { animation-delay: 1.8s; }
+
+        .mod-code-cursor {
+            animation: cursorBlink 1.1s steps(2, start) infinite;
+        }
+
+        .mod-code-node {
+            animation: nodeGlow 3.2s ease-in-out infinite;
+        }
+
+        .mod-code-node.d2 { animation-delay: 1.1s; }
+        .mod-code-node.d3 { animation-delay: 2.1s; }
+
+        .platform-card:hover .mod-code-line {
+            animation-duration: 1.9s;
+        }
+
+        /* 2) Módulo SaaS: pulsos multi-tenant recorriendo enlaces */
+        .mod-saas-link {
+            stroke-dasharray: 5 7;
+            animation: dashFlow 2.2s linear infinite;
+        }
+
+        .mod-saas-link.rev {
+            animation-direction: reverse;
+            animation-duration: 2.8s;
+        }
+
+        .mod-saas-ring {
+            transform-origin: 150px 58px;
+            animation: hubRipple 3s ease-out infinite;
+        }
+
+        .platform-card:hover .mod-saas-link {
+            stroke: rgba(225, 185, 86, 0.85);
+            animation-duration: 1.1s;
+        }
+
+        /* 3) Módulo IA: sinapsis disparándose por capas */
+        .mod-ai-edge {
+            stroke-dasharray: 14 48;
+            stroke-dashoffset: 62;
+            animation: synapseFire 2.6s ease-in-out infinite;
+        }
+
+        .mod-ai-edge.l2 { animation-delay: 0.7s; }
+        .mod-ai-edge.l3 { animation-delay: 1.4s; }
+
+        .mod-ai-node {
+            animation: neuronPulse 2.6s ease-in-out infinite;
+        }
+
+        .mod-ai-node.n2 { animation-delay: 0.55s; }
+        .mod-ai-node.n3 { animation-delay: 1.15s; }
+
+        .platform-card:hover .mod-ai-edge {
+            animation-duration: 1.35s;
+            stroke: #e8c261;
+        }
+
+        /* 4) Módulo Datos: escáner predictivo + picos vivos */
+        .mod-data-scan {
+            animation: dataScan 3.8s ease-in-out infinite;
+        }
+
+        .mod-data-curve {
+            stroke-dasharray: 340;
+            stroke-dashoffset: 0;
+            animation: curveBreathe 4s ease-in-out infinite;
+        }
+
+        .mod-data-dot {
+            animation: dotPing 3.8s ease-in-out infinite;
+        }
+
+        .mod-data-dot.p2 { animation-delay: 1.1s; }
+        .mod-data-dot.p3 { animation-delay: 2.2s; }
+
+        .platform-card:hover .mod-data-scan {
+            animation-duration: 2s;
+        }
+
+        /* 5) Módulo Audio DSP: Canvas en tiempo real */
+        .module-audio-canvas {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* 6) Módulo Operaciones: secuenciador estilo DAW / Ableton */
+        .mod-ops-playhead {
+            animation: playheadSweep 3.4s linear infinite;
+        }
+
+        .mod-ops-clip {
+            animation: clipTrigger 3.4s ease-in-out infinite;
+        }
+
+        .mod-ops-clip.c1 { animation-delay: 0.15s; }
+        .mod-ops-clip.c2 { animation-delay: 0.85s; }
+        .mod-ops-clip.c3 { animation-delay: 1.55s; }
+        .mod-ops-clip.c4 { animation-delay: 2.25s; }
+        .mod-ops-clip.c5 { animation-delay: 2.75s; }
+
+        .platform-card:hover .mod-ops-playhead,
+        .platform-card:hover .mod-ops-clip {
+            animation-duration: 1.9s;
+        }
+
+        @keyframes modLedPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        @keyframes codeStream {
+            0%, 100% { opacity: 0.45; transform: scaleX(0.72); }
+            50% { opacity: 1; transform: scaleX(1); }
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes nodeGlow {
+            0%, 100% { fill: #252630; stroke: rgba(255, 255, 255, 0.22); }
+            50% { fill: rgba(201, 160, 61, 0.25); stroke: #c9a03d; }
+        }
+
+        @keyframes dashFlow {
+            to { stroke-dashoffset: -24; }
+        }
+
+        @keyframes hubRipple {
+            0% { opacity: 0.7; transform: scale(0.75); }
+            100% { opacity: 0; transform: scale(1.9); }
+        }
+
+        @keyframes synapseFire {
+            0% { stroke-dashoffset: 62; opacity: 0.15; }
+            45% { opacity: 0.95; }
+            100% { stroke-dashoffset: -62; opacity: 0.15; }
+        }
+
+        @keyframes neuronPulse {
+            0%, 100% { fill: #22232c; stroke: rgba(255, 255, 255, 0.28); }
+            50% { fill: rgba(201, 160, 61, 0.45); stroke: #e8c261; }
+        }
+
+        @keyframes dataScan {
+            0% { transform: translateX(0); opacity: 0; }
+            12% { opacity: 1; }
+            88% { opacity: 1; }
+            100% { transform: translateX(244px); opacity: 0; }
+        }
+
+        @keyframes curveBreathe {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes dotPing {
+            0%, 100% { r: 3; opacity: 0.45; }
+            45% { r: 4.8; opacity: 1; }
+        }
+
+        @keyframes playheadSweep {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(246px); }
+        }
+
+        @keyframes clipTrigger {
+            0%, 100% { fill: rgba(255, 255, 255, 0.08); stroke: rgba(255, 255, 255, 0.15); }
+            18%, 34% { fill: rgba(201, 160, 61, 0.42); stroke: #e2bc5c; }
+            50% { fill: rgba(255, 255, 255, 0.08); stroke: rgba(255, 255, 255, 0.15); }
+        }
+
+        /* ── Consola Interactiva Split-View (#solutions — sin tarjetas) ── */
+        .solutions-console {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .solutions-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .sol-row {
+            position: relative;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+            padding: 22px 16px 22px 24px;
+            cursor: pointer;
+            font-family: inherit;
+            color: inherit;
+            transition: background-color 0.25s ease;
+        }
+
+        .sol-row::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 16px;
+            bottom: 16px;
+            width: 2px;
+            background: transparent;
+            border-radius: 2px;
+            transition: background-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .sol-row:hover {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .sol-row.active {
+            background: linear-gradient(90deg, rgba(201, 160, 61, 0.08) 0%, rgba(201, 160, 61, 0.015) 65%, transparent 100%);
+        }
+
+        .sol-row.active::before {
+            background: var(--gold);
+            box-shadow: 0 0 12px rgba(201, 160, 61, 0.75);
+        }
+
+        /* Barra de progreso fina en el borde inferior de la fila activa */
+        .sol-progress {
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            height: 1.5px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold) 0%, #f0ce71 100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sol-row.active.is-cycling .sol-progress {
+            opacity: 1;
+            animation: solProgressFill 6s linear forwards;
+        }
+
+        .sol-row.active.is-paused .sol-progress {
+            opacity: 0.55;
+            width: 100%;
+            animation: none;
+        }
+
+        .sol-row-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .sol-num {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #636570;
+            font-variant-numeric: tabular-nums;
+            min-width: 24px;
+            transition: color 0.25s ease;
+        }
+
+        .sol-row:hover .sol-num,
+        .sol-row.active .sol-num {
+            color: var(--gold);
+        }
+
+        .sol-icon {
+            font-size: 0.95rem;
+            color: #7c7f8c;
+            width: 20px;
+            text-align: center;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .sol-row.active .sol-icon {
+            color: var(--gold);
+            transform: scale(1.08);
+        }
+
+        .sol-title {
+            font-size: 1.22rem;
+            font-weight: 600;
+            color: #b4b5be;
+            letter-spacing: -0.01em;
+            flex: 1;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .sol-row:hover .sol-title {
+            color: #e4e5ea;
+        }
+
+        .sol-row.active .sol-title {
+            color: var(--text-primary);
+            transform: translateX(4px);
+        }
+
+        .sol-arrow {
+            font-size: 0.8rem;
+            color: #555763;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        .sol-row.active .sol-arrow {
+            color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        /* Cuerpo expandible sin saltos */
+        .sol-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            transition: grid-template-rows 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+        }
+
+        .sol-row.active .sol-body {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+
+        .sol-body-inner {
+            overflow: hidden;
+            padding-left: 58px;
+        }
+
+        .sol-body-inner .sol-desc {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-top: 10px;
+        }
+
+        .sol-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        /* Visor Blueprint en vivo (Columna derecha) */
+        .solutions-stage {
+            position: sticky;
+            top: 40px;
+            border-radius: 20px;
+            background:
+                radial-gradient(ellipse 75% 65% at 50% 0%, rgba(201, 160, 61, 0.1) 0%, transparent 65%),
+                #0d0e13;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 24px 56px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+        }
+
+        .sol-stage-chrome {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .sol-stage-channel {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #d8be74;
+        }
+
+        .sol-stage-status {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #7c7f8c;
+        }
+
+        .sol-stage-viewport {
+            position: relative;
+            height: 330px;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .sol-scene {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: translateY(10px) scale(0.985);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .sol-scene.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .sol-scene svg {
+            width: 100%;
+            height: 100%;
+            max-width: 460px;
+            display: block;
+        }
+
+        .sol-stage-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .sol-stage-caption {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sol-stage-dots {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .sol-stage-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.18);
+            transition: width 0.25s ease, background-color 0.25s ease;
+        }
+
+        .sol-stage-dot.active {
+            width: 22px;
+            background: var(--gold);
+        }
+
+        /* Animaciones de las 6 escenas Blueprint */
+        .bp-flow {
+            stroke-dasharray: 6 8;
+            animation: bpFlowMove 2.2s linear infinite;
+        }
+
+        .bp-flow-slow {
+            stroke-dasharray: 8 10;
+            animation: bpFlowMove 3.2s linear infinite;
+        }
+
+        .bp-bar {
+            transform-box: fill-box;
+            transform-origin: bottom center;
+            animation: bpBarBounce 2.8s ease-in-out infinite;
+        }
+
+        .bp-bar.b2 { animation-delay: 0.35s; }
+        .bp-bar.b3 { animation-delay: 0.7s; }
+        .bp-bar.b4 { animation-delay: 1.05s; }
+        .bp-bar.b5 { animation-delay: 1.4s; }
+        .bp-bar.b6 { animation-delay: 1.75s; }
+
+        .bp-pulse-ring {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: bpRingExpand 2.8s ease-out infinite;
+        }
+
+        .bp-pulse-ring.r2 { animation-delay: 0.9s; }
+        .bp-pulse-ring.r3 { animation-delay: 1.8s; }
+
+        .bp-tag-pop {
+            animation: bpTagFloat 3.2s ease-in-out infinite;
+        }
+
+        .bp-tag-pop.t2 { animation-delay: 0.8s; }
+        .bp-tag-pop.t3 { animation-delay: 1.6s; }
+        .bp-tag-pop.t4 { animation-delay: 2.3s; }
+
+        .bp-scan-wide {
+            animation: bpScanWide 4s ease-in-out infinite;
+        }
+
+        .bp-gate-ping {
+            animation: bpGatePing 2.4s ease-in-out infinite;
+        }
+
+        .bp-gate-ping.g2 { animation-delay: 0.8s; }
+        .bp-gate-ping.g3 { animation-delay: 1.6s; }
+
+        @keyframes solProgressFill {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        @keyframes bpFlowMove {
+            to { stroke-dashoffset: -28; }
+        }
+
+        @keyframes bpBarBounce {
+            0%, 100% { transform: scaleY(0.55); opacity: 0.65; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        @keyframes bpRingExpand {
+            0% { transform: scale(0.55); opacity: 0.8; }
+            100% { transform: scale(1.85); opacity: 0; }
+        }
+
+        @keyframes bpTagFloat {
+            0%, 100% { opacity: 0.45; transform: translateY(3px); }
+            40%, 65% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bpScanWide {
+            0% { transform: translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(350px); opacity: 0; }
+        }
+
+        @keyframes bpGatePing {
+            0%, 100% { opacity: 0.25; }
+            45% { opacity: 1; }
         }
 
         /* section titles */
         .section-title {
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            line-height: 1.2;
+            margin-bottom: 12px;
             letter-spacing: -0.02em;
-            color: #f0f0f0;
+            color: var(--text-primary);
+            text-wrap: balance;
         }
 
         .section-sub {
-            color: #a8a8a8;
-            margin-bottom: 48px;
-            font-size: 1.1rem;
-            max-width: 680px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1.08rem;
+            line-height: 1.6;
+            max-width: 660px;
         }
 
-        /* client list style */
+        /* ecosystem / client list */
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
         .client-badge-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 16px;
+            gap: 12px;
         }
 
         .client-item {
-            background: #131313;
-            padding: 8px 20px;
-            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.045);
+            padding: 10px 18px;
+            border-radius: 9999px;
             font-size: 0.9rem;
             font-weight: 500;
-            border: 1px solid #2d2d2d;
-            color: #a8a8a8;
-            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            color: #d6d7dc;
+            transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
         }
 
         .client-item:hover {
-            border-color: #c9a03d;
-            color: #c9a03d;
+            border-color: rgba(201, 160, 61, 0.7);
+            color: var(--gold);
+            background: rgba(201, 160, 61, 0.08);
+        }
+
+        /* Team cards */
+        .team-grid {
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            align-items: center;
+            text-align: center;
+            padding: 36px 28px;
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 22px;
+            border: 2px solid rgba(201, 160, 61, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2d2d34 0%, #18181c 100%);
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h3 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            color: var(--gold) !important;
+            font-weight: 600;
+            font-size: 0.92rem !important;
+            margin-bottom: 14px;
+        }
+
+        .team-exp {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 9999px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #d2d3d8;
+            margin-bottom: 18px;
+        }
+
+        .team-tags {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.65;
+        }
+
+        /* Automation & AI highlight block */
+        .highlight-block {
+            background:
+                radial-gradient(ellipse 60% 60% at 50% 0%, rgba(201, 160, 61, 0.09) 0%, transparent 70%),
+                #1b1b21;
+            border-radius: 24px;
+            padding: 52px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 32px rgba(0, 0, 0, 0.28);
+            transition: border-color 0.25s ease;
+        }
+
+        .highlight-block:hover {
+            border-color: rgba(201, 160, 61, 0.55);
+        }
+
+        .highlight-inner {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .highlight-icon {
+            font-size: 2.1rem;
+            color: var(--gold);
+        }
+
+        .ai-checks {
+            margin-top: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 32px;
+        }
+
+        .ai-check {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e6e6ea;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .ai-check i {
+            color: var(--gold);
         }
 
         /* NOT list */
-        .not-grid {
+        .not-container {
+            background: #141418;
+            border-radius: 24px;
+            padding: 44px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            transition: border-color 0.25s ease;
+        }
+
+        .not-container:hover {
+            border-color: rgba(201, 160, 61, 0.45);
+        }
+
+        .not-header {
             display: flex;
+            align-items: center;
+            gap: 14px;
             flex-wrap: wrap;
-            gap: 16px;
-            margin: 32px 0 20px;
+            margin-bottom: 14px;
+        }
+
+        .not-header i {
+            color: var(--gold);
+            font-size: 1.6rem;
+        }
+
+        .not-header .section-title {
+            margin: 0;
+        }
+
+        .not-desc {
+            font-size: 1.05rem;
+            line-height: 1.65;
+            max-width: 820px;
+            margin-bottom: 24px;
+            color: var(--text-secondary);
+        }
+
+        .not-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 28px 0 24px;
         }
 
         .not-card {
-            background: #131313;
-            border-left: 4px solid #e0e0e0;
-            padding: 14px 20px;
-            border-radius: 20px;
-            flex: 1 1 200px;
-            backdrop-filter: blur(2px);
-            color: #a8a8a8;
-            transition: border-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #1e1e24;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-left: 3px solid #6b6d76;
+            padding: 14px 18px;
+            border-radius: 16px;
+            color: var(--text-secondary);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
         }
 
         .not-card:hover {
-            border-left-color: #c9a03d;
+            border-color: rgba(255, 255, 255, 0.16);
+            border-left-color: var(--gold);
+            background: #24242b;
         }
 
         .not-card i {
-            color: #cccccc;
-            margin-right: 10px;
+            color: #9c9ea6;
+            flex-shrink: 0;
         }
 
         .not-card span {
             font-weight: 500;
-            color: #f0f0f0;
+            font-size: 0.95rem;
+            color: var(--text-primary);
         }
 
+        .not-ok {
+            margin-top: 24px;
+            border-left: 3px solid var(--gold);
+            padding: 6px 0 6px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e6e6ea;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .not-ok i {
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        /* CTA final (estático, sin elevación hover engañosa) */
+        .cta-card {
+            background: rgba(26, 25, 29, 0.88);
+            border: 1px solid rgba(201, 160, 61, 0.24);
+            border-radius: 24px;
+            padding: 56px 32px;
+            text-align: center;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 16px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .cta-card-icon {
+            font-size: 2.2rem;
+            color: var(--gold);
+        }
+
+        .cta-desc {
+            max-width: 600px;
+            margin: 0 auto 28px;
+            color: #bdbec5;
+            line-height: 1.65;
+        }
+
+        .cta-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .cta-trusted {
+            margin-top: 28px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* tech badges */
+        .tech-badges {
+            margin-top: auto;
+            padding-top: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 9999px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #d0d1d6;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .tech-badge:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .gradient-text {
+            color: var(--gold);
+            font-weight: inherit;
+        }
+
+        a {
+            color: #e0e0e4;
+            text-decoration: none;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-subtle);
+            margin: 40px 0 24px;
+        }
+
+        /* Footer */
         footer {
-            border-top: 1px solid #2d2d2d;
-            margin-top: 80px;
-            padding: 48px 0 32px;
-            color: #a8a8a8;
-            background-color: #131313;
-            /* fondo secundario */
+            border-top: 1px solid var(--border-subtle);
+            padding: 56px 0 36px;
+            color: var(--text-secondary);
+            background-color: #070709;
         }
 
         .footer-grid {
@@ -382,47 +1577,102 @@
             gap: 32px;
         }
 
+        .footer-heading {
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            transition: color 0.2s ease;
+            padding: 2px 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            padding: 2px 0;
+        }
+
+        a.footer-contact-item {
+            transition: color 0.2s ease;
+        }
+
+        a.footer-contact-item:hover {
+            color: var(--gold);
+        }
+
+        .footer-socials {
+            margin-top: 18px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .footer-socials i {
+            color: #8c8e96;
+            font-size: 1.05rem;
+            transition: color 0.2s ease;
+        }
+
         .footer-bottom {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
         }
 
-        /* ── Tablet (≤ 800px) ─────────────────────────────── */
-        @media (max-width: 800px) {
-            /* Ocultar menú normal y acciones del navbar tradicional */
+        .footer-tagline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ── Narrow Desktop (≤ 1120px) ───────────────────── */
+        @media (max-width: 1120px) {
+            .nav-links {
+                gap: 20px;
+            }
+        }
+
+        /* ── Tablet & Mobile Nav Breakpoint (≤ 960px) ────── */
+        @media (max-width: 960px) {
             .navbar .nav-links,
             .navbar .nav-actions {
                 display: none !important;
             }
 
             .navbar {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                padding: 16px 0 !important;
+                padding: 16px 0;
             }
 
-            /* Botón Hamburguesa */
             .menu-toggle {
-                display: block !important;
-                background: transparent;
-                border: none;
-                color: #f0f0f0;
-                font-size: 1.5rem;
-                cursor: pointer;
+                display: inline-flex !important;
                 z-index: 1001;
-                transition: color 0.2s;
             }
 
             .menu-toggle:hover {
-                color: #c9a03d;
+                color: var(--gold);
+                border-color: rgba(255, 255, 255, 0.14);
             }
 
-            /* Overlay de fondo */
             .sidebar-overlay {
                 display: block;
                 position: fixed;
@@ -430,7 +1680,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.7);
+                background: rgba(0, 0, 0, 0.72);
                 backdrop-filter: blur(4px);
                 z-index: 999;
                 opacity: 0;
@@ -443,20 +1693,20 @@
                 pointer-events: auto;
             }
 
-            /* Contenedor del Sidebar Desplegable */
             .mobile-sidebar {
                 display: flex !important;
                 position: fixed;
                 top: 0;
-                right: -280px;
-                width: 280px;
+                right: -300px;
+                width: 300px;
+                max-width: 85vw;
                 height: 100%;
-                background: #131313;
-                border-left: 1px solid #2d2d2d;
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+                background: #131317;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: -12px 0 32px rgba(0, 0, 0, 0.55);
                 z-index: 1002;
                 flex-direction: column;
-                padding: 32px 24px;
+                padding: 24px;
                 transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
@@ -468,53 +1718,127 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin-bottom: 40px;
+                margin-bottom: 32px;
+            }
+
+            .sidebar-header-right {
+                display: flex;
+                align-items: center;
+                gap: 8px;
             }
 
             .sidebar-close {
                 background: transparent;
-                border: none;
-                color: #a8a8a8;
-                font-size: 1.5rem;
+                border: 1px solid transparent;
+                color: var(--text-secondary);
+                font-size: 1.4rem;
                 cursor: pointer;
-                transition: color 0.2s;
+                min-width: 44px;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                transition: color 0.2s ease, border-color 0.2s ease;
             }
 
             .sidebar-close:hover {
-                color: #c9a03d;
+                color: var(--gold);
+                border-color: rgba(255, 255, 255, 0.14);
             }
 
             .sidebar-links {
                 display: flex;
                 flex-direction: column;
-                gap: 24px;
+                gap: 8px;
                 margin-bottom: auto;
             }
 
             .sidebar-links a {
-                color: #f0f0f0;
+                color: var(--text-primary);
                 text-decoration: none;
-                font-size: 1.15rem;
+                font-size: 1.05rem;
                 font-weight: 600;
-                transition: color 0.2s;
+                min-height: 44px;
+                padding: 0 8px;
+                border-radius: 10px;
+                transition: color 0.2s ease, background-color 0.2s ease;
                 display: flex;
                 align-items: center;
                 gap: 12px;
             }
 
+            .sidebar-links a i {
+                width: 20px;
+                text-align: center;
+                color: var(--text-secondary);
+                transition: color 0.2s ease;
+            }
+
             .sidebar-links a:hover {
-                color: #c9a03d;
+                color: var(--gold);
+                background: rgba(255, 255, 255, 0.04);
+            }
+
+            .sidebar-links a:hover i {
+                color: var(--gold);
             }
 
             .sidebar-actions {
                 display: flex;
                 flex-direction: column;
-                gap: 16px;
-                margin-top: 40px;
-                border-top: 1px solid #2d2d2d;
+                gap: 12px;
+                margin-top: 32px;
+                border-top: 1px solid var(--border-subtle);
                 padding-top: 24px;
             }
 
+            .sidebar-actions .btn-outline {
+                width: 100%;
+            }
+
+            .grid-3cols {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .solutions-console {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .solutions-stage {
+                position: static;
+                order: -1;
+            }
+
+            .sol-stage-viewport {
+                height: 250px;
+            }
+
+            .sol-body-inner {
+                padding-left: 38px;
+            }
+
+            .ecosystem-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .not-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .band {
+                padding: 72px 0;
+            }
+
+            .hero {
+                padding: 64px 0 80px;
+            }
+        }
+
+        /* ── Tablet narrow (≤ 768px) ─────────────────────── */
+        @media (max-width: 768px) {
             .grid-2cols,
             .grid-3cols {
                 grid-template-columns: 1fr;
@@ -525,35 +1849,40 @@
             }
 
             .section-title {
-                font-size: 1.8rem;
+                font-size: 1.75rem;
             }
 
-            /* reduce section vertical spacing */
-            section[style*="margin-top: 80px"],
-            section {
-                margin-top: 60px !important;
-            }
-
-            /* footer columns: 2 per row on tablet */
             footer .footer-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Resaltado sutil en scroll sin saltos verticales */
+            .card.scroll-hover {
+                border-color: rgba(201, 160, 61, 0.55);
+            }
+
+            .card.scroll-hover > i {
+                color: var(--gold);
+            }
+
+            .highlight-block.scroll-hover {
+                border-color: rgba(201, 160, 61, 0.55);
             }
         }
 
         /* ── Mobile (≤ 480px) ────────────────────────────── */
         @media (max-width: 480px) {
-
             .container {
                 padding: 0 16px;
             }
 
             .hero {
-                padding: 28px 0 44px;
+                padding: 40px 0 56px;
             }
 
             .hero h1 {
-                font-size: 1.9rem;
-                letter-spacing: -0.02em;
+                font-size: 1.95rem;
+                letter-spacing: -0.025em;
             }
 
             .hero p {
@@ -565,171 +1894,63 @@
             }
 
             .section-sub {
-                font-size: 0.95rem;
+                font-size: 0.96rem;
+                margin-bottom: 32px;
             }
 
-            section[style*="margin-top: 80px"],
-            section {
-                margin-top: 48px !important;
+            .band {
+                padding: 56px 0;
             }
 
-            /* navbar: stack tightly */
-            .navbar {
-                gap: 14px;
-                padding: 18px 0;
-            }
-
-            .nav-links {
-                gap: 14px;
-                font-size: 0.9rem;
-            }
-
-            /* cards */
             .card {
                 padding: 22px 18px;
-                border-radius: 20px;
             }
 
             .card h3 {
                 font-size: 1.2rem;
             }
 
-            /* highlight block */
-            .highlight-block {
-                border-radius: 28px !important;
-                padding: 32px 20px !important;
+            .highlight-block,
+            .not-container,
+            .cta-card {
+                border-radius: 20px;
+                padding: 36px 20px;
             }
 
-            /* not-grid: full width items */
-            .not-card {
-                flex: 1 1 100%;
+            .not-grid {
+                grid-template-columns: 1fr;
             }
 
-            /* footer: all columns stacked */
             footer .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 28px;
             }
 
-            /* footer copyright: stack */
             footer .footer-bottom {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 6px;
+                gap: 8px;
             }
 
-            /* buttons */
-            .btn-primary,
-            .btn-outline {
+            .hero-actions .btn-primary,
+            .cta-actions .btn-primary,
+            .cta-actions .btn-outline {
                 width: 100%;
-                text-align: center;
-                justify-content: center;
             }
         }
 
-        hr {
-            border-color: #2d2d2d;
-            margin: 40px 0;
-        }
-
-        .tech-badge {
-            display: inline-block;
-            background: #131313;
-            border-radius: 40px;
-            padding: 4px 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            margin-right: 8px;
-            margin-top: 12px;
-            color: #cccccc;
-            border: 1px solid #2d2d2d;
-            transition: all 0.2s;
-        }
-
-        .tech-badge:hover {
-            border-color: #c9a03d;
-            color: #c9a03d;
-        }
-
-        .bg-secondary {
-            background-color: #131313;
-        }
-
-        .highlight-block {
-            background: #131313;
-            border-radius: 48px;
-            padding: 48px 32px;
-            border: 1px solid #2d2d2d;
-            transition: border 0.2s;
-        }
-
-        .highlight-block:hover {
-            border-color: #c9a03d;
-        }
-
-        .testimonial-card {
-            background: #1f1f1f;
-            border-color: #2d2d2d;
-        }
-
-        .gradient-text {
-            color: #c9a03d;
-            /* dorado elegante */
-            font-weight: 600;
-        }
-
-        a {
-            color: #e0e0e0;
-            text-decoration: none;
-        }
-
-        /* detalles dorados en íconos de redes y footer */
-        footer .fab:hover {
-            color: #c9a03d;
-            transition: color 0.2s;
-        }
-
-        .cta-divider {
-            width: 80px;
-            height: 2px;
-            background: #c9a03d;
-            margin: 20px auto;
-        }
-
-        /* Mobile scroll highlights */
-        @media (max-width: 800px) {
-            .badge.scroll-hover {
-                border-color: #c9a03d;
+        /* Respetar preferencia de movimiento reducido */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
             }
 
-            .card.scroll-hover {
-                border-color: #c9a03d;
-                transform: translateY(-4px);
-                box-shadow: 0 12px 32px rgba(201, 160, 61, 0.08);
-            }
-
-            .card.scroll-hover i {
-                color: #c9a03d;
-            }
-
-            .client-item.scroll-hover {
-                border-color: #c9a03d;
-                background: #1a1a1a;
-            }
-
-            .not-card.scroll-hover {
-                border-color: #c9a03d;
-                background: #1a1a1a;
-            }
-
-            .tech-badge.scroll-hover {
-                border-color: #c9a03d;
-                background: rgba(201, 160, 61, 0.1);
-                color: #c9a03d;
-            }
-
-            .highlight-block.scroll-hover {
-                border-color: #c9a03d;
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -737,159 +1958,646 @@
 
 <body>
 
-    <div class="container" id="home">
-        <!-- header navigation -->
-        <div class="navbar">
-            <div class="logo">SONARA<span>.</span></div>
-            <div class="nav-links">
-                <a href="#home" data-i18n="nav.home">Inicio</a>
-                <a href="#solutions" data-i18n="nav.solutions">Soluciones</a>
-                <a href="#platform" data-i18n="nav.platform">Plataforma</a>
-                <a href="#team" data-i18n="nav.team">Nuestro equipo</a>
-                <a href="#contact" data-i18n="nav.contact">Contacto</a>
-            </div>
-            <div class="nav-actions" style="gap: 12px;">
-                <div class="lang-switcher" style="margin-right: 4px;">
-                    <a href="#" class="lang-btn active" data-lang="es">ES</a>
-                    <span class="lang-sep">|</span>
-                    <a href="#" class="lang-btn" data-lang="en">EN</a>
+    <!-- Hero Stage full-bleed con fondo animado acústico/IA -->
+    <header class="hero-stage" id="home">
+        <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+        <div class="hero-vignette" aria-hidden="true"></div>
+
+        <div class="container">
+            <!-- header navigation -->
+            <nav class="navbar" aria-label="Navegación principal">
+                <div class="logo">SONARA<span>.</span></div>
+                <div class="nav-links">
+                    <a href="#home" data-i18n="nav.home">Inicio</a>
+                    <a href="#platform" data-i18n="nav.platform">Plataforma</a>
+                    <a href="#solutions" data-i18n="nav.solutions">Soluciones</a>
+                    <a href="#team" data-i18n="nav.team">Nuestro equipo</a>
+                    <a href="#contact" data-i18n="nav.contact">Contacto</a>
                 </div>
-                <a href="https://mixbus-demo.vercel.app/" target="_blank" class="btn-outline"
-                    style="padding: 8px 20px; color: #c9a03d; border-color: #c9a03d; font-weight: 700;">
-                    MIXBUS
-                </a>
-                <a href="https://wa.me/56986314114" target="_blank" class="btn-outline" style="padding: 8px 20px;">
-                    <i class="fab fa-whatsapp"></i> <span data-i18n="nav.talk">Hablar con el equipo</span>
-                </a>
-            </div>
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-                <i class="fas fa-bars"></i>
-            </button>
+                <div class="nav-actions">
+                    <div class="lang-switcher" role="group" aria-label="Idioma">
+                        <a href="#" class="lang-btn active" data-lang="es">ES</a>
+                        <span class="lang-sep" aria-hidden="true">|</span>
+                        <a href="#" class="lang-btn" data-lang="en">EN</a>
+                    </div>
+                    <a href="https://mixbus-demo.vercel.app/" target="_blank" rel="noopener noreferrer"
+                        class="btn-outline btn-nav btn-accent-subtle">
+                        MIXBUS
+                    </a>
+                    <a href="https://wa.me/56986314114" target="_blank" rel="noopener noreferrer"
+                        class="btn-outline btn-nav">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        <span data-i18n="nav.talk">Hablar con el equipo</span>
+                    </a>
+                </div>
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false"
+                    aria-controls="mobileSidebar">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </nav>
+
+            <!-- hero -->
+            <section class="hero">
+                <span class="badge"><i class="fas fa-microchip" aria-hidden="true"></i> <span data-i18n="hero.badge">INGENIERÍA PARA EL ENTRETENIMIENTO</span></span>
+                <h1><span data-i18n="hero.title_part1">Software, automatización e IA<br> que impulsan la</span> <span
+                        class="gradient-text" data-i18n="hero.title_gradient">industria musical y del entretenimiento</span>
+                </h1>
+                <p data-i18n="hero.desc">SONARA crea software a medida, plataformas SaaS, herramientas de IA y sistemas
+                    operativos para sellos discográficos, recintos, artistas y organizaciones de eventos en vivo. No hacemos
+                    música: construimos la tecnología que hace a la industria más inteligente.</p>
+                <div class="hero-actions">
+                    <a href="#solutions" class="btn-primary"><i class="fas fa-arrow-right" aria-hidden="true"></i> <span
+                            data-i18n="hero.btn_explore">Explorar soluciones</span></a>
+                </div>
+            </section>
         </div>
+    </header>
 
-        <!-- hero -->
-        <section class="hero">
-            <span class="badge"><i class="fas fa-microchip"></i> <span data-i18n="hero.badge">INGENIERÍA PARA EL
-                    ENTRETENIMIENTO</span></span>
-            <h1><span data-i18n="hero.title_part1">Software, automatización e IA<br> que impulsan la</span> <span
-                    class="gradient-text" data-i18n="hero.title_gradient">industria musical y del entretenimiento</span>
-            </h1>
-            <p data-i18n="hero.desc">SONARA crea software a medida, plataformas SaaS, herramientas de IA y sistemas
-                operativos para sellos discográficos, recintos, artistas y organizaciones de eventos en vivo. No hacemos
-                música: construimos la tecnología que hace a la industria más inteligente.</p>
-            <div style="display: flex; gap: 18px; flex-wrap: wrap;">
-                <a href="#solutions" class="btn-primary"><i class="fas fa-arrow-right"></i> <span
-                        data-i18n="hero.btn_explore">Explorar soluciones</span></a>
+    <main>
+        <!-- core specialties (Banda elevada) -->
+        <section id="platform" class="band band--elevated">
+            <div class="container">
+                <div class="section-header-center">
+                    <span class="badge"><i class="fas fa-cube" aria-hidden="true"></i> <span data-i18n="platform.badge">NUESTRA EXPERIENCIA</span></span>
+                    <h2 class="section-title" data-i18n="platform.title">Deep tech para el entretenimiento</h2>
+                    <p class="section-sub" data-i18n="platform.sub">Ingeniería de extremo a extremo, desde plugins de audio
+                        hasta inteligencia empresarial</p>
+                </div>
+                <div class="grid-3cols platform-grid" id="platformGrid">
+                    <!-- Módulo 1: Software a Medida -->
+                    <div class="card platform-card">
+                        <div class="module-stage" aria-hidden="true">
+                            <span class="module-tag"><span class="module-dot"></span>SYS // BUILD</span>
+                            <svg class="module-svg" viewBox="0 0 300 112" fill="none">
+                                <!-- Bloques modulares de arquitectura -->
+                                <rect x="22" y="34" width="128" height="58" rx="7" fill="#14151b" stroke="rgba(255,255,255,0.12)" />
+                                <rect class="mod-code-line" x="34" y="46" width="52" height="5" rx="2.5" fill="#c9a03d" />
+                                <rect class="mod-code-line d2" x="34" y="57" width="88" height="4.5" rx="2.25" fill="#6f7382" />
+                                <rect class="mod-code-line d3" x="46" y="67" width="70" height="4.5" rx="2.25" fill="#c9a03d" opacity="0.7" />
+                                <rect class="mod-code-line d4" x="34" y="77" width="44" height="4.5" rx="2.25" fill="#525663" />
+                                <rect class="mod-code-cursor" x="83" y="76" width="5" height="7" rx="1" fill="#e8c261" />
+                                <!-- Conectores hacia módulos compilados -->
+                                <path d="M150 50 H182 M150 63 H196 M150 76 H182" stroke="rgba(201,160,61,0.45)" stroke-width="1.3" stroke-dasharray="4 4" class="mod-saas-link" />
+                                <rect class="mod-code-node" x="186" y="36" width="90" height="15" rx="4" stroke-width="1.2" />
+                                <rect class="mod-code-node d2" x="198" y="56" width="78" height="15" rx="4" stroke-width="1.2" />
+                                <rect class="mod-code-node d3" x="186" y="76" width="90" height="15" rx="4" stroke-width="1.2" />
+                            </svg>
+                        </div>
+                        <div class="platform-card-head">
+                            <i class="fas fa-code" aria-hidden="true"></i>
+                            <h3 data-i18n="platform.c1_title">Software a Medida</h3>
+                        </div>
+                        <p data-i18n="platform.c1_desc">Plataformas adaptadas, herramientas internas y sistemas de gestión
+                            de artistas y sellos construidos para escalar.</p>
+                    </div>
+
+                    <!-- Módulo 2: Plataformas SaaS -->
+                    <div class="card platform-card">
+                        <div class="module-stage" aria-hidden="true">
+                            <span class="module-tag"><span class="module-dot"></span>CLOUD // MULTI-TENANT</span>
+                            <svg class="module-svg" viewBox="0 0 300 112" fill="none">
+                                <!-- Enlaces animados multi-tenant -->
+                                <line class="mod-saas-link" x1="150" y1="60" x2="62" y2="38" stroke="rgba(201,160,61,0.55)" stroke-width="1.4" />
+                                <line class="mod-saas-link rev" x1="150" y1="60" x2="66" y2="86" stroke="rgba(220,224,238,0.3)" stroke-width="1.3" />
+                                <line class="mod-saas-link" x1="150" y1="60" x2="238" y2="36" stroke="rgba(201,160,61,0.55)" stroke-width="1.4" />
+                                <line class="mod-saas-link rev" x1="150" y1="60" x2="242" y2="84" stroke="rgba(220,224,238,0.3)" stroke-width="1.3" />
+                                <line class="mod-saas-link" x1="150" y1="60" x2="150" y2="95" stroke="rgba(201,160,61,0.45)" stroke-width="1.3" />
+                                <!-- Ondas de sincronización del núcleo -->
+                                <circle class="mod-saas-ring" cx="150" cy="60" r="16" stroke="rgba(201,160,61,0.6)" stroke-width="1.2" />
+                                <!-- Hub central -->
+                                <circle cx="150" cy="60" r="14" fill="#1c1912" stroke="#c9a03d" stroke-width="1.8" />
+                                <circle cx="150" cy="60" r="4.5" fill="#e8c261" />
+                                <!-- Nodos satélite (tenants) -->
+                                <circle cx="62" cy="38" r="7" fill="#181920" stroke="#c9a03d" stroke-width="1.3" />
+                                <circle cx="66" cy="86" r="6" fill="#181920" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" />
+                                <circle cx="238" cy="36" r="7" fill="#181920" stroke="#c9a03d" stroke-width="1.3" />
+                                <circle cx="242" cy="84" r="6" fill="#181920" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" />
+                                <circle cx="150" cy="95" r="5" fill="#181920" stroke="#c9a03d" stroke-width="1.2" />
+                            </svg>
+                        </div>
+                        <div class="platform-card-head">
+                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                            <h3 data-i18n="platform.c2_title">Plataformas SaaS</h3>
+                        </div>
+                        <p data-i18n="platform.c2_desc">Soluciones B2B multi-tenant para emisión de boletos, coordinación de
+                            recintos y logística de giras.</p>
+                    </div>
+
+                    <!-- Módulo 3: Herramientas de IA -->
+                    <div class="card platform-card">
+                        <div class="module-stage" aria-hidden="true">
+                            <span class="module-tag"><span class="module-dot"></span>NEURAL // AGENTS</span>
+                            <svg class="module-svg" viewBox="0 0 300 112" fill="none">
+                                <!-- Conexiones base tenues -->
+                                <g stroke="rgba(255,255,255,0.1)" stroke-width="1">
+                                    <line x1="60" y1="36" x2="148" y2="30" /><line x1="60" y1="36" x2="148" y2="54" /><line x1="60" y1="36" x2="148" y2="78" />
+                                    <line x1="60" y1="62" x2="148" y2="30" /><line x1="60" y1="62" x2="148" y2="54" /><line x1="60" y1="62" x2="148" y2="78" /><line x1="60" y1="62" x2="148" y2="96" />
+                                    <line x1="60" y1="88" x2="148" y2="54" /><line x1="60" y1="88" x2="148" y2="78" /><line x1="60" y1="88" x2="148" y2="96" />
+                                    <line x1="148" y1="30" x2="238" y2="48" /><line x1="148" y1="54" x2="238" y2="48" /><line x1="148" y1="78" x2="238" y2="48" />
+                                    <line x1="148" y1="54" x2="238" y2="78" /><line x1="148" y1="78" x2="238" y2="78" /><line x1="148" y1="96" x2="238" y2="78" />
+                                </g>
+                                <!-- Sinapsis activas doradas -->
+                                <line class="mod-ai-edge" x1="60" y1="36" x2="148" y2="54" stroke="#c9a03d" stroke-width="1.8" />
+                                <line class="mod-ai-edge l2" x1="60" y1="62" x2="148" y2="30" stroke="#c9a03d" stroke-width="1.6" />
+                                <line class="mod-ai-edge l3" x1="60" y1="88" x2="148" y2="78" stroke="#c9a03d" stroke-width="1.6" />
+                                <line class="mod-ai-edge l2" x1="148" y1="54" x2="238" y2="48" stroke="#e8c261" stroke-width="1.8" />
+                                <line class="mod-ai-edge l3" x1="148" y1="78" x2="238" y2="78" stroke="#e8c261" stroke-width="1.8" />
+                                <line class="mod-ai-edge" x1="148" y1="30" x2="238" y2="48" stroke="#c9a03d" stroke-width="1.5" />
+                                <!-- Neuronas -->
+                                <circle class="mod-ai-node" cx="60" cy="36" r="5" stroke-width="1.3" />
+                                <circle class="mod-ai-node n2" cx="60" cy="62" r="5" stroke-width="1.3" />
+                                <circle class="mod-ai-node n3" cx="60" cy="88" r="5" stroke-width="1.3" />
+                                <circle class="mod-ai-node n2" cx="148" cy="30" r="5" stroke-width="1.3" />
+                                <circle class="mod-ai-node" cx="148" cy="54" r="5.5" stroke-width="1.4" />
+                                <circle class="mod-ai-node n3" cx="148" cy="78" r="5.5" stroke-width="1.4" />
+                                <circle class="mod-ai-node n2" cx="148" cy="96" r="4.5" stroke-width="1.2" />
+                                <circle class="mod-ai-node n3" cx="238" cy="48" r="6.5" stroke-width="1.6" />
+                                <circle class="mod-ai-node" cx="238" cy="78" r="6.5" stroke-width="1.6" />
+                            </svg>
+                        </div>
+                        <div class="platform-card-head">
+                            <i class="fas fa-robot" aria-hidden="true"></i>
+                            <h3 data-i18n="platform.c3_title">Herramientas de IA</h3>
+                        </div>
+                        <p data-i18n="platform.c3_desc">Automatización inteligente, analíticas y flujos de trabajo de IA
+                            generativa para operaciones repetitivas.</p>
+                    </div>
+
+                    <!-- Módulo 4: Datos e Inteligencia -->
+                    <div class="card platform-card">
+                        <div class="module-stage" aria-hidden="true">
+                            <span class="module-tag"><span class="module-dot"></span>BI // PREDICTIVE</span>
+                            <svg class="module-svg" viewBox="0 0 300 112" fill="none">
+                                <defs>
+                                    <linearGradient id="dataAreaGrad" x1="0" y1="30" x2="0" y2="104" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#c9a03d" stop-opacity="0.34" />
+                                        <stop offset="100%" stop-color="#c9a03d" stop-opacity="0" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Líneas guía -->
+                                <line x1="22" y1="42" x2="278" y2="42" stroke="rgba(255,255,255,0.06)" />
+                                <line x1="22" y1="68" x2="278" y2="68" stroke="rgba(255,255,255,0.06)" />
+                                <line x1="22" y1="94" x2="278" y2="94" stroke="rgba(255,255,255,0.08)" />
+                                <!-- Área bajo curva -->
+                                <path d="M24 88 C58 84, 72 60, 104 66 C134 72, 152 40, 186 46 C214 51, 232 28, 274 34 L274 98 L24 98 Z" fill="url(#dataAreaGrad)" />
+                                <!-- Curva predictiva -->
+                                <path class="mod-data-curve" d="M24 88 C58 84, 72 60, 104 66 C134 72, 152 40, 186 46 C214 51, 232 28, 274 34" stroke="#c9a03d" stroke-width="2" stroke-linecap="round" />
+                                <!-- Picos de datos -->
+                                <circle class="mod-data-dot" cx="104" cy="66" r="3.5" fill="#e8c261" />
+                                <circle class="mod-data-dot p2" cx="186" cy="46" r="3.5" fill="#e8c261" />
+                                <circle class="mod-data-dot p3" cx="258" cy="33" r="3.5" fill="#e8c261" />
+                                <!-- Escáner láser vertical animado -->
+                                <g class="mod-data-scan">
+                                    <line x1="26" y1="24" x2="26" y2="98" stroke="#e8c261" stroke-width="1.4" />
+                                    <rect x="20" y="24" width="12" height="74" fill="rgba(201,160,61,0.12)" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="platform-card-head">
+                            <i class="fas fa-chart-line" aria-hidden="true"></i>
+                            <h3 data-i18n="platform.c4_title">Datos e Inteligencia</h3>
+                        </div>
+                        <p data-i18n="platform.c4_desc">Inteligencia de negocios y analítica predictiva para sellos,
+                            promotores y gestión de derechos.</p>
+                    </div>
+
+                    <!-- Módulo 5: Software y Plugins de Audio (Canvas DSP en tiempo real) -->
+                    <div class="card platform-card" id="audioModuleCard">
+                        <div class="module-stage" aria-hidden="true">
+                            <span class="module-tag"><span class="module-dot"></span>DSP // 48kHz REALTIME</span>
+                            <canvas class="module-audio-canvas" id="audioModuleCanvas"></canvas>
+                        </div>
+                        <div class="platform-card-head">
+                            <i class="fas fa-headphones" aria-hidden="true"></i>
+                            <h3 data-i18n="platform.c5_title">Software y Plugins de Audio</h3>
+                        </div>
+                        <p data-i18n="platform.c5_desc">Plugins VST/AU, herramientas creativas y sistemas de audio en tiempo
+                            real para productores.</p>
+                    </div>
+
+                    <!-- Módulo 6: Sistemas de Operaciones (Secuenciador DAW / Live Ops) -->
+                    <div class="card platform-card">
+                        <div class="module-stage" aria-hidden="true">
+                            <span class="module-tag"><span class="module-dot"></span>OPS // LIVE SYNC</span>
+                            <svg class="module-svg" viewBox="0 0 300 112" fill="none">
+                                <!-- Carriles de pista -->
+                                <line x1="24" y1="42" x2="276" y2="42" stroke="rgba(255,255,255,0.06)" />
+                                <line x1="24" y1="64" x2="276" y2="64" stroke="rgba(255,255,255,0.06)" />
+                                <line x1="24" y1="86" x2="276" y2="86" stroke="rgba(255,255,255,0.06)" />
+                                <!-- Bloques de programación / eventos -->
+                                <rect class="mod-ops-clip c1" x="30" y="34" width="58" height="16" rx="4" stroke-width="1.2" />
+                                <rect class="mod-ops-clip c3" x="128" y="34" width="76" height="16" rx="4" stroke-width="1.2" />
+                                <rect class="mod-ops-clip c5" x="220" y="34" width="48" height="16" rx="4" stroke-width="1.2" />
+
+                                <rect class="mod-ops-clip c2" x="72" y="56" width="84" height="16" rx="4" stroke-width="1.2" />
+                                <rect class="mod-ops-clip c4" x="176" y="56" width="66" height="16" rx="4" stroke-width="1.2" />
+
+                                <rect class="mod-ops-clip c1" x="38" y="78" width="46" height="16" rx="4" stroke-width="1.2" />
+                                <rect class="mod-ops-clip c3" x="108" y="78" width="62" height="16" rx="4" stroke-width="1.2" />
+                                <rect class="mod-ops-clip c5" x="196" y="78" width="72" height="16" rx="4" stroke-width="1.2" />
+
+                                <!-- Playhead dorado recorriendo el timeline -->
+                                <g class="mod-ops-playhead">
+                                    <line x1="26" y1="26" x2="26" y2="98" stroke="#e8c261" stroke-width="1.8" />
+                                    <polygon points="22,26 30,26 26,31" fill="#e8c261" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="platform-card-head">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            <h3 data-i18n="platform.c6_title">Sistemas de Operaciones</h3>
+                        </div>
+                        <p data-i18n="platform.c6_desc">Programación automatizada, coordinación de recursos y columnas
+                            vertebrales operativas para eventos en vivo.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- core specialties -->
-        <section id="platform">
-            <div style="text-align: center; margin-bottom: 24px;">
-                <span class="badge"><i class="fas fa-cube"></i> <span data-i18n="platform.badge">NUESTRA
-                        EXPERIENCIA</span></span>
-            </div>
-            <h2 class="section-title" style="text-align: center;" data-i18n="platform.title">Deep tech para el
-                entretenimiento</h2>
-            <p class="section-sub" style="text-align: center; margin-left: auto; margin-right: auto;"
-                data-i18n="platform.sub">Ingeniería de extremo a extremo, desde plugins de audio hasta inteligencia
-                empresarial</p>
-            <div class="grid-3cols">
-                <div class="card"><i class="fas fa-code"></i>
-                    <h3 data-i18n="platform.c1_title">Software a Medida</h3>
-                    <p data-i18n="platform.c1_desc">Plataformas adaptadas, herramientas internas y sistemas de gestión
-                        de artistas y sellos construidos para escalar.</p>
+        <!-- SOLUTIONS: Consola Interactiva Split-View (Sin tarjetas) -->
+        <section id="solutions" class="band band--solutions">
+            <div class="container">
+                <div class="section-header-left">
+                    <span class="badge"><i class="fas fa-tools" aria-hidden="true"></i> <span data-i18n="solutions.badge">SOLUCIONES DEL MUNDO REAL</span></span>
+                    <h2 class="section-title" data-i18n="solutions.title">Construido para operaciones de entretenimiento</h2>
                 </div>
-                <div class="card"><i class="fas fa-cloud-upload-alt"></i>
-                    <h3 data-i18n="platform.c2_title">Plataformas SaaS</h3>
-                    <p data-i18n="platform.c2_desc">Soluciones B2B multi-tenant para emisión de boletos, coordinación de
-                        recintos y logística de giras.</p>
-                </div>
-                <div class="card"><i class="fas fa-robot"></i>
-                    <h3 data-i18n="platform.c3_title">Herramientas de IA</h3>
-                    <p data-i18n="platform.c3_desc">Automatización inteligente, analíticas y flujos de trabajo de IA
-                        generativa para operaciones repetitivas.</p>
-                </div>
-                <div class="card"><i class="fas fa-chart-line"></i>
-                    <h3 data-i18n="platform.c4_title">Datos e Inteligencia</h3>
-                    <p data-i18n="platform.c4_desc">Inteligencia de negocios y analítica predictiva para sellos,
-                        promotores y gestión de derechos.</p>
-                </div>
-                <div class="card"><i class="fas fa-headphones"></i>
-                    <h3 data-i18n="platform.c5_title">Software y Plugins de Audio</h3>
-                    <p data-i18n="platform.c5_desc">Plugins VST/AU, herramientas creativas y sistemas de audio en tiempo
-                        real para productores.</p>
-                </div>
-                <div class="card"><i class="fas fa-calendar-alt"></i>
-                    <h3 data-i18n="platform.c6_title">Sistemas de Operaciones</h3>
-                    <p data-i18n="platform.c6_desc">Programación automatizada, coordinación de recursos y columnas
-                        vertebrales operativas para eventos en vivo.</p>
+
+                <div class="solutions-console" id="solutionsConsole">
+                    <!-- Columna izquierda: Lista arquitectónica interactiva 01–06 -->
+                    <div class="solutions-list" role="tablist" aria-label="Soluciones de entretenimiento">
+                        <button type="button" class="sol-row active is-cycling" role="tab" aria-selected="true"
+                            data-sol="0" data-channel="01 // CRM · AUTOMATION">
+                            <span class="sol-row-head">
+                                <span class="sol-num">01</span>
+                                <i class="fas fa-building sol-icon" aria-hidden="true"></i>
+                                <span class="sol-title" data-i18n="solutions.c1_title">Gestión de Artistas y Sellos</span>
+                                <i class="fas fa-arrow-right sol-arrow" aria-hidden="true"></i>
+                            </span>
+                            <span class="sol-body">
+                                <span class="sol-body-inner">
+                                    <span class="sol-desc" data-i18n="solutions.c1_desc">Dashboards centralizados, regalías, flujos de lanzamiento, analíticas de roster.</span>
+                                    <span class="sol-tags"><span class="tech-badge">CRM</span><span class="tech-badge">Automation</span></span>
+                                </span>
+                            </span>
+                            <span class="sol-progress" aria-hidden="true"></span>
+                        </button>
+
+                        <button type="button" class="sol-row" role="tab" aria-selected="false"
+                            data-sol="1" data-channel="02 // TICKETING · CAPACITY">
+                            <span class="sol-row-head">
+                                <span class="sol-num">02</span>
+                                <i class="fas fa-map-marker-alt sol-icon" aria-hidden="true"></i>
+                                <span class="sol-title" data-i18n="solutions.c2_title">Operaciones de Recintos</span>
+                                <i class="fas fa-arrow-right sol-arrow" aria-hidden="true"></i>
+                            </span>
+                            <span class="sol-body">
+                                <span class="sol-body-inner">
+                                    <span class="sol-desc" data-i18n="solutions.c2_desc">Software integral para propietarios de recintos, promotores y logística de producción.</span>
+                                    <span class="sol-tags"><span class="tech-badge">Ticketing</span><span class="tech-badge">Capacity</span></span>
+                                </span>
+                            </span>
+                            <span class="sol-progress" aria-hidden="true"></span>
+                        </button>
+
+                        <button type="button" class="sol-row" role="tab" aria-selected="false"
+                            data-sol="2" data-channel="03 // MACHINE LEARNING">
+                            <span class="sol-row-head">
+                                <span class="sol-num">03</span>
+                                <i class="fas fa-magic sol-icon" aria-hidden="true"></i>
+                                <span class="sol-title" data-i18n="solutions.c3_title">IA para Creadores</span>
+                                <i class="fas fa-arrow-right sol-arrow" aria-hidden="true"></i>
+                            </span>
+                            <span class="sol-body">
+                                <span class="sol-body-inner">
+                                    <span class="sol-desc" data-i18n="solutions.c3_desc">Etiquetado inteligente, enriquecimiento de metadatos, organización automatizada de sesiones.</span>
+                                    <span class="sol-tags"><span class="tech-badge">Machine Learning</span></span>
+                                </span>
+                            </span>
+                            <span class="sol-progress" aria-hidden="true"></span>
+                        </button>
+
+                        <button type="button" class="sol-row" role="tab" aria-selected="false"
+                            data-sol="3" data-channel="04 // BIGQUERY · TABLEAU">
+                            <span class="sol-row-head">
+                                <span class="sol-num">04</span>
+                                <i class="fas fa-chart-simple sol-icon" aria-hidden="true"></i>
+                                <span class="sol-title" data-i18n="solutions.c4_title">Herramientas de Analítica</span>
+                                <i class="fas fa-arrow-right sol-arrow" aria-hidden="true"></i>
+                            </span>
+                            <span class="sol-body">
+                                <span class="sol-body-inner">
+                                    <span class="sol-desc" data-i18n="solutions.c4_desc">Almacenamiento de datos, analítica de streaming, dashboards en tiempo real para sellos.</span>
+                                    <span class="sol-tags"><span class="tech-badge">BigQuery</span><span class="tech-badge">Tableau</span></span>
+                                </span>
+                            </span>
+                            <span class="sol-progress" aria-hidden="true"></span>
+                        </button>
+
+                        <button type="button" class="sol-row" role="tab" aria-selected="false"
+                            data-sol="4" data-channel="05 // SCALABLE · RFID">
+                            <span class="sol-row-head">
+                                <span class="sol-num">05</span>
+                                <i class="fas fa-ticket-alt sol-icon" aria-hidden="true"></i>
+                                <span class="sol-title" data-i18n="solutions.c5_title">Tecnología de Audiencia</span>
+                                <i class="fas fa-arrow-right sol-arrow" aria-hidden="true"></i>
+                            </span>
+                            <span class="sol-body">
+                                <span class="sol-body-inner">
+                                    <span class="sol-desc" data-i18n="solutions.c5_desc">Admisión inteligente, motores de lealtad, integraciones RFID y control de acceso.</span>
+                                    <span class="sol-tags"><span class="tech-badge">Scalable</span></span>
+                                </span>
+                            </span>
+                            <span class="sol-progress" aria-hidden="true"></span>
+                        </button>
+
+                        <button type="button" class="sol-row" role="tab" aria-selected="false"
+                            data-sol="5" data-channel="06 // ENTERPRISE · ERP">
+                            <span class="sol-row-head">
+                                <span class="sol-num">06</span>
+                                <i class="fas fa-microphone-alt sol-icon" aria-hidden="true"></i>
+                                <span class="sol-title" data-i18n="solutions.c6_title">Sistemas Internos</span>
+                                <i class="fas fa-arrow-right sol-arrow" aria-hidden="true"></i>
+                            </span>
+                            <span class="sol-body">
+                                <span class="sol-body-inner">
+                                    <span class="sol-desc" data-i18n="solutions.c6_desc">ERPs personalizados para productoras, contabilidad de giras e inventario.</span>
+                                    <span class="sol-tags"><span class="tech-badge">Enterprise</span></span>
+                                </span>
+                            </span>
+                            <span class="sol-progress" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <!-- Columna derecha: Visor Blueprint en vivo -->
+                    <div class="solutions-stage" aria-hidden="true">
+                        <div class="sol-stage-chrome">
+                            <span class="sol-stage-channel">
+                                <span class="module-dot"></span>
+                                <span id="solStageChannel">01 // CRM · AUTOMATION</span>
+                            </span>
+                            <span class="sol-stage-status" id="solStageStatus">LIVE BLUEPRINT</span>
+                        </div>
+
+                        <div class="sol-stage-viewport">
+                            <!-- Escena 01: Artistas y Sellos (Pipeline de lanzamientos y regalías) -->
+                            <div class="sol-scene active" data-scene="0">
+                                <svg viewBox="0 0 440 280" fill="none">
+                                    <!-- Roster tracks (izquierda) -->
+                                    <rect x="20" y="38" width="128" height="44" rx="8" fill="#15161d" stroke="rgba(255,255,255,0.14)" />
+                                    <circle cx="38" cy="60" r="8" fill="rgba(201,160,61,0.22)" stroke="#c9a03d" />
+                                    <rect x="54" y="52" width="66" height="5" rx="2.5" fill="#e0e1e6" />
+                                    <rect x="54" y="63" width="44" height="4" rx="2" fill="#6f7382" />
+
+                                    <rect x="20" y="116" width="128" height="44" rx="8" fill="#15161d" stroke="rgba(201,160,61,0.5)" />
+                                    <circle cx="38" cy="138" r="8" fill="#c9a03d" />
+                                    <rect x="54" y="130" width="76" height="5" rx="2.5" fill="#f0f0f4" />
+                                    <rect x="54" y="141" width="52" height="4" rx="2" fill="#c9a03d" />
+
+                                    <rect x="20" y="194" width="128" height="44" rx="8" fill="#15161d" stroke="rgba(255,255,255,0.14)" />
+                                    <circle cx="38" cy="216" r="8" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.35)" />
+                                    <rect x="54" y="208" width="58" height="5" rx="2.5" fill="#c8c9d0" />
+                                    <rect x="54" y="219" width="40" height="4" rx="2" fill="#6f7382" />
+
+                                    <!-- Flujos hacia el motor de regalías -->
+                                    <path class="bp-flow" d="M148 60 C188 60, 190 138, 224 138" stroke="rgba(201,160,61,0.75)" stroke-width="1.6" />
+                                    <path class="bp-flow" d="M148 138 L224 138" stroke="#e8c261" stroke-width="2" />
+                                    <path class="bp-flow-slow" d="M148 216 C188 216, 190 138, 224 138" stroke="rgba(220,224,238,0.4)" stroke-width="1.5" />
+
+                                    <!-- Motor central de regalías / splits -->
+                                    <rect x="224" y="54" width="196" height="172" rx="12" fill="#14151c" stroke="rgba(201,160,61,0.35)" />
+                                    <text x="242" y="80" fill="#c9a03d" font-size="10" font-weight="700" letter-spacing="1.2">ROYALTY ENGINE</text>
+                                    <rect x="242" y="96" width="160" height="1" fill="rgba(255,255,255,0.08)" />
+                                    <!-- Barras de distribución animadas -->
+                                    <rect class="bp-bar" x="252" y="136" width="18" height="62" rx="4" fill="#c9a03d" />
+                                    <rect class="bp-bar b2" x="282" y="118" width="18" height="80" rx="4" fill="#e8c261" />
+                                    <rect class="bp-bar b3" x="312" y="148" width="18" height="50" rx="4" fill="rgba(201,160,61,0.6)" />
+                                    <rect class="bp-bar b4" x="342" y="126" width="18" height="72" rx="4" fill="#c9a03d" />
+                                    <rect class="bp-bar b5" x="372" y="140" width="18" height="58" rx="4" fill="rgba(225,226,238,0.45)" />
+                                    <text x="242" y="214" fill="#8d909e" font-size="9" letter-spacing="0.8">MASTER · DIST · SPLITS</text>
+                                </svg>
+                            </div>
+
+                            <!-- Escena 02: Operaciones de Recintos (Plano de aforo y ticketing) -->
+                            <div class="sol-scene" data-scene="1">
+                                <svg viewBox="0 0 440 280" fill="none">
+                                    <!-- Escenario superior -->
+                                    <path d="M135 42 Q220 26 305 42 L292 66 Q220 56 148 66 Z" fill="rgba(201,160,61,0.22)" stroke="#c9a03d" stroke-width="1.6" />
+                                    <text x="220" y="53" text-anchor="middle" fill="#f0ce71" font-size="10" font-weight="700" letter-spacing="1.6">MAIN STAGE</text>
+
+                                    <!-- Arcos de aforo (VIP / Floor / Upper) -->
+                                    <path d="M116 106 Q220 76 324 106" stroke="#c9a03d" stroke-width="12" stroke-linecap="round" opacity="0.85" />
+                                    <path d="M84 146 Q220 104 356 146" stroke="rgba(201,160,61,0.5)" stroke-width="12" stroke-linecap="round" />
+                                    <path d="M54 188 Q220 134 386 188" stroke="rgba(225,226,238,0.2)" stroke-width="12" stroke-linecap="round" />
+
+                                    <!-- Flujos de accesos desde puertas inferiores -->
+                                    <path class="bp-flow" d="M110 248 L140 184" stroke="#c9a03d" stroke-width="1.6" />
+                                    <path class="bp-flow" d="M220 254 L220 172" stroke="#e8c261" stroke-width="1.8" />
+                                    <path class="bp-flow" d="M330 248 L300 184" stroke="#c9a03d" stroke-width="1.6" />
+
+                                    <!-- Puertas de acceso con ping -->
+                                    <circle class="bp-gate-ping" cx="110" cy="248" r="6" fill="#c9a03d" />
+                                    <circle class="bp-gate-ping g2" cx="220" cy="254" r="7" fill="#e8c261" />
+                                    <circle class="bp-gate-ping g3" cx="330" cy="248" r="6" fill="#c9a03d" />
+                                    <text x="220" y="232" text-anchor="middle" fill="#9b9ea9" font-size="9" letter-spacing="1.1">LIVE CAPACITY · 94% CHECKED IN</text>
+                                </svg>
+                            </div>
+
+                            <!-- Escena 03: IA para Creadores (Waveform + auto-tagging de metadatos) -->
+                            <div class="sol-scene" data-scene="2">
+                                <svg viewBox="0 0 440 280" fill="none">
+                                    <!-- Línea central del waveform -->
+                                    <line x1="36" y1="154" x2="404" y2="154" stroke="rgba(255,255,255,0.1)" />
+                                    <!-- Waveform estilizado -->
+                                    <g fill="#c9a03d">
+                                        <rect class="bp-bar" x="48" y="134" width="6" height="40" rx="3" opacity="0.55" />
+                                        <rect class="bp-bar b2" x="64" y="114" width="6" height="80" rx="3" opacity="0.8" />
+                                        <rect class="bp-bar b3" x="80" y="124" width="6" height="60" rx="3" opacity="0.65" />
+                                        <rect class="bp-bar b4" x="96" y="96" width="6" height="116" rx="3" />
+                                        <rect class="bp-bar b5" x="112" y="118" width="6" height="72" rx="3" opacity="0.75" />
+                                        <rect class="bp-bar b6" x="128" y="132" width="6" height="44" rx="3" opacity="0.55" />
+                                        <rect class="bp-bar" x="144" y="106" width="6" height="96" rx="3" opacity="0.9" />
+                                        <rect class="bp-bar b2" x="160" y="88" width="6" height="132" rx="3" fill="#e8c261" />
+                                        <rect class="bp-bar b3" x="176" y="112" width="6" height="84" rx="3" />
+                                        <rect class="bp-bar b4" x="192" y="128" width="6" height="52" rx="3" opacity="0.65" />
+                                        <rect class="bp-bar b5" x="208" y="102" width="6" height="104" rx="3" />
+                                        <rect class="bp-bar b6" x="224" y="92" width="6" height="124" rx="3" fill="#e8c261" />
+                                        <rect class="bp-bar" x="240" y="118" width="6" height="72" rx="3" opacity="0.8" />
+                                        <rect class="bp-bar b2" x="256" y="130" width="6" height="48" rx="3" opacity="0.6" />
+                                        <rect class="bp-bar b3" x="272" y="108" width="6" height="92" rx="3" />
+                                        <rect class="bp-bar b4" x="288" y="98" width="6" height="112" rx="3" fill="#e8c261" />
+                                        <rect class="bp-bar b5" x="304" y="122" width="6" height="64" rx="3" opacity="0.75" />
+                                        <rect class="bp-bar b6" x="320" y="112" width="6" height="84" rx="3" opacity="0.85" />
+                                        <rect class="bp-bar" x="336" y="128" width="6" height="52" rx="3" opacity="0.65" />
+                                        <rect class="bp-bar b2" x="352" y="116" width="6" height="76" rx="3" opacity="0.8" />
+                                        <rect class="bp-bar b3" x="368" y="134" width="6" height="40" rx="3" opacity="0.5" />
+                                        <rect class="bp-bar b4" x="384" y="140" width="6" height="28" rx="3" opacity="0.4" />
+                                    </g>
+                                    <!-- Escáner de metadatos IA -->
+                                    <g class="bp-scan-wide">
+                                        <line x1="45" y1="68" x2="45" y2="232" stroke="#f0ce71" stroke-width="1.6" />
+                                        <rect x="37" y="68" width="16" height="164" fill="rgba(201,160,61,0.14)" />
+                                    </g>
+                                    <!-- Chips de auto-tagging emergentes -->
+                                    <g class="bp-tag-pop">
+                                        <rect x="66" y="34" width="76" height="24" rx="12" fill="#181712" stroke="#c9a03d" />
+                                        <text x="104" y="50" text-anchor="middle" fill="#f0ce71" font-size="9.5" font-weight="600">BPM · 124</text>
+                                    </g>
+                                    <g class="bp-tag-pop t2">
+                                        <rect x="164" y="28" width="74" height="24" rx="12" fill="#181712" stroke="#c9a03d" />
+                                        <text x="201" y="44" text-anchor="middle" fill="#f0ce71" font-size="9.5" font-weight="600">KEY · Am</text>
+                                    </g>
+                                    <g class="bp-tag-pop t3">
+                                        <rect x="262" y="36" width="82" height="24" rx="12" fill="#181712" stroke="rgba(255,255,255,0.3)" />
+                                        <text x="303" y="52" text-anchor="middle" fill="#e4e5ea" font-size="9.5" font-weight="600">STEMS · AI</text>
+                                    </g>
+                                    <g class="bp-tag-pop t4">
+                                        <rect x="150" y="238" width="140" height="22" rx="11" fill="rgba(201,160,61,0.12)" stroke="rgba(201,160,61,0.45)" />
+                                        <text x="220" y="253" text-anchor="middle" fill="#d8be74" font-size="9" font-weight="600" letter-spacing="0.8">METADATA INDEXED</text>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Escena 04: Herramientas de Analítica (Streaming BI en vivo) -->
+                            <div class="sol-scene" data-scene="3">
+                                <svg viewBox="0 0 440 280" fill="none">
+                                    <defs>
+                                        <linearGradient id="biAreaFill" x1="0" y1="60" x2="0" y2="230" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#c9a03d" stop-opacity="0.32" />
+                                            <stop offset="100%" stop-color="#c9a03d" stop-opacity="0" />
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- KPI pills arriba -->
+                                    <rect x="30" y="26" width="116" height="40" rx="8" fill="#15161d" stroke="rgba(255,255,255,0.1)" />
+                                    <text x="44" y="42" fill="#8b8e9c" font-size="8.5" letter-spacing="0.8">STREAMS / 24H</text>
+                                    <text x="44" y="58" fill="#f0f0f4" font-size="13" font-weight="700">1.48M</text>
+
+                                    <rect x="162" y="26" width="116" height="40" rx="8" fill="#15161d" stroke="rgba(201,160,61,0.4)" />
+                                    <text x="176" y="42" fill="#c9a03d" font-size="8.5" letter-spacing="0.8">VELOCITY</text>
+                                    <text x="176" y="58" fill="#f0ce71" font-size="13" font-weight="700">+34.2%</text>
+
+                                    <rect x="294" y="26" width="116" height="40" rx="8" fill="#15161d" stroke="rgba(255,255,255,0.1)" />
+                                    <text x="308" y="42" fill="#8b8e9c" font-size="8.5" letter-spacing="0.8">MARKETS</text>
+                                    <text x="308" y="58" fill="#f0f0f4" font-size="13" font-weight="700">42</text>
+
+                                    <!-- Gráfica combinada barras + área -->
+                                    <line x1="30" y1="226" x2="410" y2="226" stroke="rgba(255,255,255,0.12)" />
+                                    <rect class="bp-bar" x="52" y="176" width="22" height="50" rx="4" fill="rgba(255,255,255,0.08)" />
+                                    <rect class="bp-bar b2" x="102" y="156" width="22" height="70" rx="4" fill="rgba(255,255,255,0.09)" />
+                                    <rect class="bp-bar b3" x="152" y="142" width="22" height="84" rx="4" fill="rgba(201,160,61,0.22)" />
+                                    <rect class="bp-bar b4" x="202" y="128" width="22" height="98" rx="4" fill="rgba(201,160,61,0.28)" />
+                                    <rect class="bp-bar b5" x="252" y="114" width="22" height="112" rx="4" fill="rgba(201,160,61,0.34)" />
+                                    <rect class="bp-bar b6" x="302" y="100" width="22" height="126" rx="4" fill="rgba(201,160,61,0.42)" />
+                                    <rect class="bp-bar b2" x="352" y="88" width="22" height="138" rx="4" fill="rgba(232,194,97,0.52)" />
+
+                                    <path d="M40 206 C95 190, 130 154, 185 158 C235 162, 270 112, 325 110 C355 108, 382 88, 404 82 L404 226 L40 226 Z" fill="url(#biAreaFill)" />
+                                    <path d="M40 206 C95 190, 130 154, 185 158 C235 162, 270 112, 325 110 C355 108, 382 88, 404 82" stroke="#e8c261" stroke-width="2.4" stroke-linecap="round" />
+                                    <g class="bp-scan-wide">
+                                        <line x1="42" y1="80" x2="42" y2="226" stroke="#f0ce71" stroke-width="1.3" />
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Escena 05: Tecnología de Audiencia (RFID + Control de acceso) -->
+                            <div class="sol-scene" data-scene="4">
+                                <svg viewBox="0 0 440 280" fill="none">
+                                    <!-- Ondas concéntricas RFID -->
+                                    <circle class="bp-pulse-ring" cx="220" cy="138" r="44" stroke="#c9a03d" stroke-width="1.4" />
+                                    <circle class="bp-pulse-ring r2" cx="220" cy="138" r="44" stroke="#c9a03d" stroke-width="1.2" />
+                                    <circle class="bp-pulse-ring r3" cx="220" cy="138" r="44" stroke="rgba(225,226,238,0.45)" stroke-width="1" />
+
+                                    <!-- Líneas de lectura hacia terminales -->
+                                    <line class="bp-flow" x1="66" y1="76" x2="188" y2="122" stroke="rgba(201,160,61,0.65)" stroke-width="1.5" />
+                                    <line class="bp-flow" x1="66" y1="202" x2="188" y2="154" stroke="rgba(201,160,61,0.65)" stroke-width="1.5" />
+                                    <line class="bp-flow" x1="374" y1="76" x2="252" y2="122" stroke="rgba(201,160,61,0.65)" stroke-width="1.5" />
+                                    <line class="bp-flow" x1="374" y1="202" x2="252" y2="154" stroke="rgba(201,160,61,0.65)" stroke-width="1.5" />
+
+                                    <!-- Lector RFID central -->
+                                    <circle cx="220" cy="138" r="34" fill="#171612" stroke="#c9a03d" stroke-width="2" />
+                                    <text x="220" y="135" text-anchor="middle" fill="#f0ce71" font-size="11" font-weight="700" letter-spacing="1.2">RFID</text>
+                                    <text x="220" y="149" text-anchor="middle" fill="#9b9ea9" font-size="8" letter-spacing="0.8">VERIFIED</text>
+
+                                    <!-- Nodos de acceso / pases -->
+                                    <rect x="32" y="58" width="76" height="34" rx="8" fill="#15161d" stroke="rgba(255,255,255,0.16)" />
+                                    <text x="70" y="79" text-anchor="middle" fill="#d8d9e0" font-size="9" font-weight="600">GATE A</text>
+
+                                    <rect x="32" y="186" width="76" height="34" rx="8" fill="#15161d" stroke="rgba(255,255,255,0.16)" />
+                                    <text x="70" y="207" text-anchor="middle" fill="#d8d9e0" font-size="9" font-weight="600">VIP PASS</text>
+
+                                    <rect x="332" y="58" width="76" height="34" rx="8" fill="#15161d" stroke="rgba(201,160,61,0.45)" />
+                                    <text x="370" y="79" text-anchor="middle" fill="#f0ce71" font-size="9" font-weight="600">LOYALTY</text>
+
+                                    <rect x="332" y="186" width="76" height="34" rx="8" fill="#15161d" stroke="rgba(255,255,255,0.16)" />
+                                    <text x="370" y="207" text-anchor="middle" fill="#d8d9e0" font-size="9" font-weight="600">CASHLESS</text>
+                                </svg>
+                            </div>
+
+                            <!-- Escena 06: Sistemas Internos (ERP / Contabilidad de giras e inventario) -->
+                            <div class="sol-scene" data-scene="5">
+                                <svg viewBox="0 0 440 280" fill="none">
+                                    <!-- Módulos ERP satélites -->
+                                    <rect x="28" y="34" width="132" height="58" rx="10" fill="#15161d" stroke="rgba(255,255,255,0.14)" />
+                                    <text x="44" y="56" fill="#c9a03d" font-size="9" font-weight="700" letter-spacing="1">TOUR LEDGER</text>
+                                    <rect x="44" y="67" width="84" height="5" rx="2.5" fill="#707484" />
+                                    <rect x="44" y="77" width="56" height="4" rx="2" fill="#c9a03d" opacity="0.7" />
+
+                                    <rect x="280" y="34" width="132" height="58" rx="10" fill="#15161d" stroke="rgba(255,255,255,0.14)" />
+                                    <text x="296" y="56" fill="#c9a03d" font-size="9" font-weight="700" letter-spacing="1">INVENTORY</text>
+                                    <rect x="296" y="67" width="90" height="5" rx="2.5" fill="#707484" />
+                                    <rect x="296" y="77" width="64" height="4" rx="2" fill="#e8c261" opacity="0.7" />
+
+                                    <rect x="28" y="186" width="132" height="58" rx="10" fill="#15161d" stroke="rgba(255,255,255,0.14)" />
+                                    <text x="44" y="208" fill="#c9a03d" font-size="9" font-weight="700" letter-spacing="1">CREW &amp; PAYROLL</text>
+                                    <rect x="44" y="219" width="76" height="5" rx="2.5" fill="#707484" />
+                                    <rect x="44" y="229" width="92" height="4" rx="2" fill="#c9a03d" opacity="0.7" />
+
+                                    <rect x="280" y="186" width="132" height="58" rx="10" fill="#15161d" stroke="rgba(255,255,255,0.14)" />
+                                    <text x="296" y="208" fill="#c9a03d" font-size="9" font-weight="700" letter-spacing="1">LOGISTICS</text>
+                                    <rect x="296" y="219" width="82" height="5" rx="2.5" fill="#707484" />
+                                    <rect x="296" y="229" width="54" height="4" rx="2" fill="#e8c261" opacity="0.7" />
+
+                                    <!-- Pipelines de sincronización ERP -->
+                                    <path class="bp-flow" d="M160 63 L220 112" stroke="#c9a03d" stroke-width="1.6" />
+                                    <path class="bp-flow" d="M280 63 L220 112" stroke="#c9a03d" stroke-width="1.6" />
+                                    <path class="bp-flow-slow" d="M160 215 L220 166" stroke="rgba(225,226,238,0.5)" stroke-width="1.5" />
+                                    <path class="bp-flow-slow" d="M280 215 L220 166" stroke="rgba(225,226,238,0.5)" stroke-width="1.5" />
+
+                                    <!-- Núcleo ERP -->
+                                    <rect x="166" y="112" width="108" height="54" rx="12" fill="#181712" stroke="#c9a03d" stroke-width="1.8" />
+                                    <text x="220" y="136" text-anchor="middle" fill="#f0ce71" font-size="11" font-weight="700" letter-spacing="1.4">SONARA ERP</text>
+                                    <text x="220" y="152" text-anchor="middle" fill="#9b9ea9" font-size="8.5" letter-spacing="0.8">SYNCED · REALTIME</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="sol-stage-footer">
+                            <span class="sol-stage-caption" id="solStageCaption">Gestión de Artistas y Sellos</span>
+                            <div class="sol-stage-dots" id="solStageDots">
+                                <span class="sol-stage-dot active"></span>
+                                <span class="sol-stage-dot"></span>
+                                <span class="sol-stage-dot"></span>
+                                <span class="sol-stage-dot"></span>
+                                <span class="sol-stage-dot"></span>
+                                <span class="sol-stage-dot"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- SOLUTIONS examples -->
-        <section id="solutions" style="margin-top: 80px;">
-            <div
-                style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px;">
-                <div>
-                    <span class="badge"><i class="fas fa-tools"></i> <span data-i18n="solutions.badge">SOLUCIONES DEL
-                            MUNDO REAL</span></span>
-                    <h2 class="section-title" style="margin-top: 12px;" data-i18n="solutions.title">Construido para
-                        operaciones de entretenimiento</h2>
-                </div>
-            </div>
-            <div class="grid-2cols" style="margin-top: 24px;">
-                <div class="card"><i class="fas fa-building"></i>
-                    <h3 data-i18n="solutions.c1_title">Gestión de Artistas y Sellos</h3>
-                    <p data-i18n="solutions.c1_desc">Dashboards centralizados, regalías, flujos de lanzamiento,
-                        analíticas de roster.</p>
-                    <div><span class="tech-badge">CRM</span><span class="tech-badge">Automation</span></div>
-                </div>
-                <div class="card"><i class="fas fa-map-marker-alt"></i>
-                    <h3 data-i18n="solutions.c2_title">Operaciones de Recintos</h3>
-                    <p data-i18n="solutions.c2_desc">Software integral para propietarios de recintos, promotores y
-                        logística de producción.</p>
-                    <div><span class="tech-badge">Ticketing</span><span class="tech-badge">Capacity</span></div>
-                </div>
-                <div class="card"><i class="fas fa-magic"></i>
-                    <h3 data-i18n="solutions.c3_title">IA para Creadores</h3>
-                    <p data-i18n="solutions.c3_desc">Etiquetado inteligente, enriquecimiento de metadatos, organización
-                        automatizada de sesiones.</p>
-                    <div><span class="tech-badge">Machine Learning</span></div>
-                </div>
-                <div class="card"><i class="fas fa-chart-simple"></i>
-                    <h3 data-i18n="solutions.c4_title">Herramientas de Analítica</h3>
-                    <p data-i18n="solutions.c4_desc">Almacenamiento de datos, analítica de streaming, dashboards en
-                        tiempo real para sellos.</p>
-                    <div><span class="tech-badge">BigQuery</span><span class="tech-badge">Tableau</span></div>
-                </div>
-                <div class="card"><i class="fas fa-ticket-alt"></i>
-                    <h3 data-i18n="solutions.c5_title">Tecnología de Audiencia</h3>
-                    <p data-i18n="solutions.c5_desc">Admisión inteligente, motores de lealtad, integraciones RFID y
-                        control de acceso.</p>
-                    <div><span class="tech-badge">Scalable</span></div>
-                </div>
-                <div class="card"><i class="fas fa-microphone-alt"></i>
-                    <h3 data-i18n="solutions.c6_title">Sistemas Internos</h3>
-                    <p data-i18n="solutions.c6_desc">ERPs personalizados para productoras, contabilidad de giras e
-                        inventario.</p>
-                    <div><span class="tech-badge">Enterprise</span></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- who we serve + client ecosystem -->
-        <section id="company" style="margin-top: 80px;">
-            <div class="grid-2cols" style="gap: 48px; align-items: center;">
-                <div>
-                    <span class="badge"><i class="fas fa-users"></i> <span
-                            data-i18n="company.badge">ECOSISTEMA</span></span>
-                    <h2 class="section-title" style="margin: 16px 0 20px 0;" data-i18n="company.title">Con la confianza
-                        de líderes del entretenimiento</h2>
-                    <p class="section-sub" style="margin-bottom: 16px;" data-i18n="company.desc">SONARA colabora con
-                        sellos, equipos de management, recintos y promotores para construir la infraestructura detrás
-                        del negocio musical moderno.</p>
+        <!-- who we serve + client ecosystem (Banda cálida) -->
+        <section id="company" class="band band--warm">
+            <div class="container">
+                <div class="ecosystem-grid">
+                    <div>
+                        <span class="badge"><i class="fas fa-users" aria-hidden="true"></i> <span
+                                data-i18n="company.badge">ECOSISTEMA</span></span>
+                        <h2 class="section-title" style="margin: 16px 0 12px;" data-i18n="company.title">Con la confianza
+                            de líderes del entretenimiento</h2>
+                        <p class="section-sub" style="margin-bottom: 0;" data-i18n="company.desc">SONARA colabora con
+                            sellos, equipos de management, recintos y promotores para construir la infraestructura detrás
+                            del negocio musical moderno.</p>
+                    </div>
                     <div class="client-badge-list">
                         <span class="client-item" data-i18n="company.list.t1">🎤 Sellos discográficos</span>
                         <span class="client-item" data-i18n="company.list.t2">🎧 Artistas y productores</span>
@@ -904,227 +2612,685 @@
             </div>
         </section>
 
-        <!-- Nuestro equipo -->
-        <section id="team" style="margin-top: 80px;">
-            <div style="text-align: center; margin-bottom: 48px;">
-                <span class="badge"><i class="fas fa-users"></i> <span data-i18n="team.badge">NUESTRO
-                        EQUIPO</span></span>
-                <h2 class="section-title" style="margin: 16px 0 12px;" data-i18n="team.title">Las personas detrás de
-                    SONARA</h2>
-                <p class="section-sub" style="margin: 0 auto;" data-i18n="team.sub">Ingeniería de software y experiencia
-                    en la industria musical, unidos para construir el futuro del entretenimiento.</p>
-            </div>
-            <div class="grid-2cols" style="gap: 36px; max-width: 900px; margin: 0 auto;">
-
-                <!-- Miembro 1 -->
-                <div class="card" style="text-align: center; padding: 36px 28px;">
-                    <div
-                        style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin: 0 auto 24px; border: 3px solid #c9a03d; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);">
-                        <img src="img/ignacio-rubi.jpg" alt="Ignacio Rubí" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #f0f0f0; margin-bottom: 4px;"
-                        data-i18n="team.m1_name">Ignacio</h3>
-                    <p style="color: #c9a03d; font-weight: 600; font-size: 0.9rem; margin-bottom: 14px;"
-                        data-i18n="team.m1_role">Music Business &amp; Dev</p>
-                    <span
-                        style="display: inline-block; background: #131313; border: 1px solid #c9a03d; border-radius: 40px; padding: 4px 14px; font-size: 0.8rem; color: #c9a03d; margin-bottom: 18px;"
-                        data-i18n="team.m1_exp">+6 años de experiencia</span>
-                    <p style="color: #a8a8a8; font-size: 0.9rem; line-height: 1.7;" data-i18n="team.m1_tags">Producción
-                        musical · Music Business · Gestión de eventos · Junior Dev</p>
+        <!-- Nuestro equipo (Banda base profunda) -->
+        <section id="team" class="band band--base">
+            <div class="container">
+                <div class="section-header-center">
+                    <span class="badge"><i class="fas fa-users" aria-hidden="true"></i> <span data-i18n="team.badge">NUESTRO EQUIPO</span></span>
+                    <h2 class="section-title" data-i18n="team.title">Las personas detrás de SONARA</h2>
+                    <p class="section-sub" data-i18n="team.sub">Ingeniería de software y experiencia en la industria
+                        musical, unidos para construir el futuro del entretenimiento.</p>
                 </div>
+                <div class="grid-2cols team-grid">
 
-                <!-- Miembro 2 -->
-                <div class="card" style="text-align: center; padding: 36px 28px;">
-                    <div
-                        style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin: 0 auto 24px; border: 3px solid #c9a03d; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);">
-                        <img src="img/gabriel-pezoa.jpg" alt="Gabriel Pezoa" style="width: 100%; height: 100%; object-fit: cover;">
+                    <!-- Miembro 1 -->
+                    <div class="card team-card">
+                        <div class="team-avatar">
+                            <img src="img/ignacio-rubi.jpg" alt="Ignacio Rubí">
+                        </div>
+                        <h3 data-i18n="team.m1_name">Ignacio Rubí</h3>
+                        <p class="team-role" data-i18n="team.m1_role">Music Business &amp; Dev</p>
+                        <span class="team-exp" data-i18n="team.m1_exp">+6 años de experiencia</span>
+                        <p class="team-tags" data-i18n="team.m1_tags">Producción musical · Music Business · Gestión de
+                            eventos · Junior Dev</p>
                     </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #f0f0f0; margin-bottom: 4px;"
-                        data-i18n="team.m2_name">Gabriel Pezoa</h3>
-                    <p style="color: #c9a03d; font-weight: 600; font-size: 0.9rem; margin-bottom: 14px;"
-                        data-i18n="team.m2_role">Senior Dev &amp; Tech Lead</p>
-                    <span
-                        style="display: inline-block; background: #131313; border: 1px solid #c9a03d; border-radius: 40px; padding: 4px 14px; font-size: 0.8rem; color: #c9a03d; margin-bottom: 18px;"
-                        data-i18n="team.m2_exp">+7 años de experiencia</span>
-                    <p style="color: #a8a8a8; font-size: 0.9rem; line-height: 1.7;" data-i18n="team.m2_tags">Desarrollo
-                        SaaS · Healthatom · Líder de equipos tech · Senior Dev</p>
-                </div>
 
+                    <!-- Miembro 2 -->
+                    <div class="card team-card">
+                        <div class="team-avatar">
+                            <img src="img/gabriel-pezoa.jpg" alt="Gabriel Pezoa">
+                        </div>
+                        <h3 data-i18n="team.m2_name">Gabriel Pezoa</h3>
+                        <p class="team-role" data-i18n="team.m2_role">Senior Dev &amp; Tech Lead</p>
+                        <span class="team-exp" data-i18n="team.m2_exp">+7 años de experiencia</span>
+                        <p class="team-tags" data-i18n="team.m2_tags">Desarrollo SaaS · Healthatom · Líder de equipos tech ·
+                            Senior Dev</p>
+                    </div>
+
+                </div>
             </div>
         </section>
 
-        <!-- Automation & AI feature highlight -->
-        <section style="margin-top: 80px;">
-            <div class="highlight-block"
-                style="background: #131313; border-radius: 48px; padding: 48px 32px; border: 1px solid #2d2d2d;">
-                <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    <i class="fas fa-brain" style="font-size: 2.2rem; color:#e0e0e0;"></i>
-                    <h2 class="section-title" style="margin: 16px 0;" data-i18n="ai.title">Sistemas de automatización
-                        para operaciones repetitivas</h2>
-                    <p style="color:#a8a8a8;" data-i18n="ai.desc">Reduce la carga manual, elimina los silos de datos y
-                        potencia la productividad con agentes de IA construidos para flujos de trabajo de
-                        entretenimiento.</p>
-                    <div style="margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;">
-                        <div><i class="fas fa-check-circle" style="color: #c9a03d;"></i> <span
-                                data-i18n="ai.chk1">Conciliación inteligente de boletos</span></div>
-                        <div><i class="fas fa-check-circle" style="color: #c9a03d;"></i> <span
-                                data-i18n="ai.chk2">Reportes automáticos de regalías</span></div>
-                        <div><i class="fas fa-check-circle" style="color: #c9a03d;"></i> <span
-                                data-i18n="ai.chk3">Automatización logística de giras</span></div>
+        <!-- Automation & AI feature highlight (Banda elevada) -->
+        <section id="automation" class="band band--elevated">
+            <div class="container">
+                <div class="highlight-block">
+                    <div class="highlight-inner">
+                        <i class="fas fa-brain highlight-icon" aria-hidden="true"></i>
+                        <h2 class="section-title" style="margin: 16px 0 12px;" data-i18n="ai.title">Sistemas de
+                            automatización para operaciones repetitivas</h2>
+                        <p class="text-secondary" style="line-height: 1.65;" data-i18n="ai.desc">Reduce la carga manual,
+                            elimina los silos de datos y potencia la productividad con agentes de IA construidos para flujos
+                            de trabajo de entretenimiento.</p>
+                        <div class="ai-checks">
+                            <div class="ai-check"><i class="fas fa-check-circle" aria-hidden="true"></i> <span
+                                    data-i18n="ai.chk1">Conciliación inteligente de boletos</span></div>
+                            <div class="ai-check"><i class="fas fa-check-circle" aria-hidden="true"></i> <span
+                                    data-i18n="ai.chk2">Reportes automáticos de regalías</span></div>
+                            <div class="ai-check"><i class="fas fa-check-circle" aria-hidden="true"></i> <span
+                                    data-i18n="ai.chk3">Automatización logística de giras</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- IMPORTANT: what SONARA is NOT -->
-        <section style="margin-top: 80px;">
-            <div
-                style="background: #131313; border-radius: 36px; padding: 40px 32px; border: 1px solid #2d2d2d; transition: border 0.2s;">
-                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
-                    <i class="fas fa-exclamation-triangle" style="color: #c9a03d; font-size: 1.8rem;"></i>
-                    <h2 style="font-size: 1.8rem; font-weight: 700; color:#f0f0f0;" data-i18n="not.title">Pura
-                        ingeniería de software</h2>
-                </div>
-                <p style="font-size: 1.05rem; max-width: 820px; margin-bottom: 24px; color:#a8a8a8;"
-                    data-i18n="not.desc">SONARA es una empresa de tecnología — no una agencia creativa, estudio, sello o
-                    fabricante de hardware. No producimos música, construimos las herramientas que empoderan a toda la
-                    industria.</p>
-                <div class="not-grid">
-                    <div class="not-card"><i class="fas fa-times-circle"></i> <span data-i18n="not.n1">NO es un estudio
-                            de música</span></div>
-                    <div class="not-card"><i class="fas fa-times-circle"></i> <span data-i18n="not.n2">NO es una agencia
-                            creativa</span></div>
-                    <div class="not-card"><i class="fas fa-times-circle"></i> <span data-i18n="not.n3">NO es un sello
-                            discográfico</span></div>
-                    <div class="not-card"><i class="fas fa-times-circle"></i> <span data-i18n="not.n4">NO es fabricante
-                            de hardware</span></div>
-                    <div class="not-card"><i class="fas fa-times-circle"></i> <span data-i18n="not.n5">NO es empresa de
-                            instalaciones AV</span></div>
-                    <div class="not-card"><i class="fas fa-times-circle"></i> <span data-i18n="not.n6">NO es empresa de
-                            backline</span></div>
-                </div>
-                <div style="margin-top: 24px; border-left: 3px solid #c9a03d; padding-left: 20px;">
-                    <p style="color: #e0e0e0; font-weight: 500;" data-i18n="not.ok">✔ Somos una empresa de ingeniería de
-                        software y tecnología especializada en entretenimiento.</p>
+        <!-- IMPORTANT: what SONARA is NOT (Banda base profunda) -->
+        <section id="not" class="band band--base">
+            <div class="container">
+                <div class="not-container">
+                    <div class="not-header">
+                        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                        <h2 class="section-title" data-i18n="not.title">Pura ingeniería de software</h2>
+                    </div>
+                    <p class="not-desc" data-i18n="not.desc">SONARA es una empresa de tecnología — no una agencia creativa,
+                        estudio, sello o fabricante de hardware. No producimos música, construimos las herramientas que
+                        empoderan a toda la industria.</p>
+                    <div class="not-grid">
+                        <div class="not-card"><i class="fas fa-times-circle" aria-hidden="true"></i> <span
+                                data-i18n="not.n1">NO es un estudio de música</span></div>
+                        <div class="not-card"><i class="fas fa-times-circle" aria-hidden="true"></i> <span
+                                data-i18n="not.n2">NO es una agencia creativa</span></div>
+                        <div class="not-card"><i class="fas fa-times-circle" aria-hidden="true"></i> <span
+                                data-i18n="not.n3">NO es un sello discográfico</span></div>
+                        <div class="not-card"><i class="fas fa-times-circle" aria-hidden="true"></i> <span
+                                data-i18n="not.n4">NO es fabricante de hardware</span></div>
+                        <div class="not-card"><i class="fas fa-times-circle" aria-hidden="true"></i> <span
+                                data-i18n="not.n5">NO es empresa de instalaciones AV</span></div>
+                        <div class="not-card"><i class="fas fa-times-circle" aria-hidden="true"></i> <span
+                                data-i18n="not.n6">NO es empresa de backline</span></div>
+                    </div>
+                    <p class="not-ok">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <span data-i18n="not.ok">Somos una empresa de ingeniería de software y tecnología especializada en
+                            entretenimiento.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- CTA + final -->
-        <section id="contact" style="margin-top: 80px; text-align: center;">
-            <div class="card" style="background: #1f1f1f; border-color:#2d2d2d;">
-                <i class="fas fa-chalkboard-user" style="font-size: 2.4rem;"></i>
-                <h2 class="section-title" style="margin: 16px 0 12px;" data-i18n="contact.title">¿Listo para modernizar
-                    tus operaciones de entretenimiento?
-                </h2>
-                <p style="max-width: 600px; margin: 0 auto 28px; color:#a8a8a8;" data-i18n="contact.desc">Desde
-                    programación con IA hasta dashboards personalizados para sellos — construyamos lo que la industria
-                    necesita a continuación.</p>
-                <div class="cta-divider"></div>
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-                    <a href="tel:+56986314114" class="btn-primary"><i class="fas fa-phone"></i> <span
-                            data-i18n="contact.btn_strategy">Llamada estratégica</span></a>
-                    <a href="https://wa.me/56986314114" target="_blank" class="btn-outline"><i
-                            class="fab fa-whatsapp"></i> <span data-i18n="nav.talk">Hablar con el equipo</span></a>
+        <!-- CTA + final (Banda cierre cálido) -->
+        <section id="contact" class="band band--cta">
+            <div class="container">
+                <div class="cta-card">
+                    <i class="fas fa-chalkboard-user cta-card-icon" aria-hidden="true"></i>
+                    <h2 class="section-title" style="margin: 16px 0 12px;" data-i18n="contact.title">¿Listo para modernizar
+                        tus operaciones de entretenimiento?</h2>
+                    <p class="cta-desc" data-i18n="contact.desc">Desde programación con IA hasta dashboards personalizados
+                        para sellos — construyamos lo que la industria necesita a continuación.</p>
+                    <div class="cta-divider"></div>
+                    <div class="cta-actions">
+                        <a href="tel:+56986314114" class="btn-primary"><i class="fas fa-phone" aria-hidden="true"></i> <span
+                                data-i18n="contact.btn_strategy">Llamada estratégica</span></a>
+                        <a href="https://wa.me/56986314114" target="_blank" rel="noopener noreferrer"
+                            class="btn-outline"><i class="fab fa-whatsapp" aria-hidden="true"></i> <span
+                                data-i18n="nav.talk">Hablar con el equipo</span></a>
+                    </div>
+                    <p class="cta-trusted"><i class="fas fa-shield-alt" aria-hidden="true"></i>
+                        <span data-i18n="contact.trusted">Con la confianza de líderes del entretenimiento en todo el
+                            mundo</span>
+                    </p>
                 </div>
-                <p style="margin-top: 28px; font-size: 0.8rem; color: #a8a8a8;"><i class="fas fa-shield-alt"></i>
-                    <span data-i18n="contact.trusted">Con la confianza de líderes del entretenimiento en todo el
-                        mundo</span>
-                </p>
             </div>
         </section>
-
-    </div>
+    </main>
 
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div>
                     <div class="logo" style="font-size: 1.6rem;">SONARA<span>.</span></div>
-                    <p style="margin-top: 12px; max-width: 260px; color:#a8a8a8;" data-i18n="footer.desc">Software,
-                        automatización e IA para la industria de la música y el entretenimiento.</p>
-                    <div style="margin-top: 18px; display: flex; gap: 14px;">
-                        <i class="fab fa-github" style="color:#a8a8a8; cursor:pointer;"></i>
-                        <i class="fab fa-linkedin-in" style="color:#a8a8a8; cursor:pointer;"></i>
-                        <i class="fab fa-x-twitter" style="color:#a8a8a8; cursor:pointer;"></i>
+                    <p style="margin-top: 12px; max-width: 260px; color:#aeafb5; line-height: 1.6;"
+                        data-i18n="footer.desc">Software, automatización e IA para la industria de la música y el
+                        entretenimiento.</p>
+                    <div class="footer-socials" aria-hidden="true">
+                        <i class="fab fa-github"></i>
+                        <i class="fab fa-linkedin-in"></i>
+                        <i class="fab fa-x-twitter"></i>
                     </div>
                 </div>
                 <div>
-                    <h4 style="color: #f0f0f0; margin-bottom: 12px;" data-i18n="footer.col1_title">Soluciones</h4>
-                    <div style="display: flex; flex-direction: column; gap: 6px;">
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;" data-i18n="footer.col1_l1">Sistemas
-                            de Artistas y Sellos</a>
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;" data-i18n="footer.col1_l2">Software
-                            para recintos</a>
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;"
-                            data-i18n="footer.col1_l3">Automatización con IA</a>
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;" data-i18n="footer.col1_l4">Analítica
-                            y BI</a>
+                    <h4 class="footer-heading" data-i18n="footer.col1_title">Soluciones</h4>
+                    <div class="footer-links">
+                        <a href="#solutions" data-i18n="footer.col1_l1">Sistemas de Artistas y Sellos</a>
+                        <a href="#solutions" data-i18n="footer.col1_l2">Software para recintos</a>
+                        <a href="#automation" data-i18n="footer.col1_l3">Automatización con IA</a>
+                        <a href="#solutions" data-i18n="footer.col1_l4">Analítica y BI</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="color: #f0f0f0; margin-bottom: 12px;" data-i18n="footer.col2_title">Compañía</h4>
-                    <div style="display: flex; flex-direction: column; gap: 6px;">
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;" data-i18n="footer.col2_l1">Acerca de
-                            SONARA</a>
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;" data-i18n="footer.col2_l2">Cultura de
-                            ingeniería</a>
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;"
-                            data-i18n="footer.col2_l3">Carreras</a>
-                        <a href="#" style="text-decoration: none; color: #a8a8a8;" data-i18n="footer.col2_l4">Prensa</a>
+                    <h4 class="footer-heading" data-i18n="footer.col2_title">Compañía</h4>
+                    <div class="footer-links">
+                        <a href="#company" data-i18n="footer.col2_l1">Acerca de SONARA</a>
+                        <a href="#not" data-i18n="footer.col2_l2">Cultura de ingeniería</a>
+                        <a href="#team" data-i18n="footer.col2_l3">Carreras</a>
+                        <a href="#contact" data-i18n="footer.col2_l4">Prensa</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="color: #f0f0f0; margin-bottom: 12px;" data-i18n="footer.col3_title">Contacto</h4>
-                    <div style="display: flex; flex-direction: column; gap: 6px; color: #a8a8a8;">
-                        <span><i class="fas fa-envelope"></i> <span
-                                data-i18n="footer.col3_l1">hello@sonara.tech</span></span>
-                        <span><i class="fas fa-map-pin"></i> <span data-i18n="footer.col3_l2">Ingeniería
-                                global</span></span>
+                    <h4 class="footer-heading" data-i18n="footer.col3_title">Contacto</h4>
+                    <div class="footer-links">
+                        <a href="mailto:hello@sonara.tech" class="footer-contact-item"><i class="fas fa-envelope"
+                                aria-hidden="true"></i> <span data-i18n="footer.col3_l1">hello@sonara.tech</span></a>
+                        <span class="footer-contact-item"><i class="fas fa-map-pin" aria-hidden="true"></i> <span
+                                data-i18n="footer.col3_l2">Ingeniería global</span></span>
                     </div>
                 </div>
             </div>
-            <hr style="margin: 40px 0 24px;">
+            <hr>
             <div class="footer-bottom">
                 <span data-i18n="footer.copy">© 2025 SONARA — Ingeniería de Software para el Entretenimiento. Todos los
                     derechos reservados.</span>
-                <span><i class="fas fa-code"></i> <span data-i18n="footer.tagline">Construido para sellos, recintos y
-                        creadores</span></span>
+                <span class="footer-tagline"><i class="fas fa-code" aria-hidden="true"></i> <span
+                        data-i18n="footer.tagline">Construido para sellos, recintos y creadores</span></span>
             </div>
         </div>
     </footer>
 
     <!-- Sidebar Móvil (fuera del container, fixed) -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+    <aside class="mobile-sidebar" id="mobileSidebar" aria-label="Menú móvil" aria-hidden="true" inert>
         <div class="sidebar-header">
             <div class="logo" style="font-size: 1.5rem;">SONARA<span>.</span></div>
-            <button class="sidebar-close" id="sidebarClose" aria-label="Cerrar menú">
-                <i class="fas fa-times"></i>
-            </button>
+            <div class="sidebar-header-right">
+                <div class="lang-switcher" role="group" aria-label="Idioma">
+                    <a href="#" class="lang-btn active" data-lang="es">ES</a>
+                    <span class="lang-sep" aria-hidden="true">|</span>
+                    <a href="#" class="lang-btn" data-lang="en">EN</a>
+                </div>
+                <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Cerrar menú">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
         <div class="sidebar-links">
-            <a href="#home" data-i18n="nav.home"><i class="fas fa-home"></i> Inicio</a>
-            <a href="#solutions" data-i18n="nav.solutions"><i class="fas fa-tools"></i> Soluciones</a>
-            <a href="#platform" data-i18n="nav.platform"><i class="fas fa-cube"></i> Plataforma</a>
-            <a href="#team" data-i18n="nav.team"><i class="fas fa-users"></i> Nuestro equipo</a>
-            <a href="#contact" data-i18n="nav.contact"><i class="fas fa-envelope"></i> Contacto</a>
+            <a href="#home"><i class="fas fa-home" aria-hidden="true"></i> <span data-i18n="nav.home">Inicio</span></a>
+            <a href="#platform"><i class="fas fa-cube" aria-hidden="true"></i> <span
+                    data-i18n="nav.platform">Plataforma</span></a>
+            <a href="#solutions"><i class="fas fa-tools" aria-hidden="true"></i> <span
+                    data-i18n="nav.solutions">Soluciones</span></a>
+            <a href="#team"><i class="fas fa-users" aria-hidden="true"></i> <span data-i18n="nav.team">Nuestro
+                    equipo</span></a>
+            <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> <span
+                    data-i18n="nav.contact">Contacto</span></a>
         </div>
         <div class="sidebar-actions">
-            <a href="https://mixbus-demo.vercel.app/" target="_blank" class="btn-outline"
-                style="text-align: center; color: #c9a03d; border-color: #c9a03d; font-weight: 700;">
+            <a href="https://mixbus-demo.vercel.app/" target="_blank" rel="noopener noreferrer"
+                class="btn-outline btn-accent-subtle">
                 MIXBUS
             </a>
-            <a href="https://wa.me/56986314114" target="_blank" class="btn-outline" style="text-align: center;">
-                <i class="fab fa-whatsapp"></i> <span data-i18n="nav.talk">Hablar con el equipo</span>
+            <a href="https://wa.me/56986314114" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i> <span data-i18n="nav.talk">Hablar con el
+                    equipo</span>
             </a>
         </div>
-    </div>
+    </aside>
 
     <script src="js/i18n.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Lógica del Sidebar Móvil
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // ── Fondo animado del Hero: Campo wavetable panorámico + espectro + red neuronal IA ──
+            const heroStage = document.querySelector('.hero-stage');
+            const canvas = document.getElementById('heroCanvas');
+            if (canvas && heroStage) {
+                const ctx = canvas.getContext('2d');
+                let width = 0;
+                let height = 0;
+                let dpr = Math.min(window.devicePixelRatio || 1, 2);
+                let animId = null;
+                let isHeroVisible = true;
+                let time = 0;
+                let pointerX = 0.65;
+                let pointerY = 0.5;
+                let targetPointerX = 0.65;
+                let targetPointerY = 0.5;
+
+                // 10 ondas distribuidas a lo largo de TODA la altura del Hero (14% a 90%)
+                const waves = [
+                    { yRatio: 0.16, amp: 52, freq: 0.0028, speed: 0.007, phase: 0.2, color: 'rgba(201, 160, 61, 0.16)', width: 1.1, fill: false, glow: false },
+                    { yRatio: 0.25, amp: 68, freq: 0.0034, speed: 0.009, phase: 1.1, color: 'rgba(225, 226, 238, 0.14)', width: 1.2, fill: false, glow: false },
+                    { yRatio: 0.34, amp: 84, freq: 0.0026, speed: 0.011, phase: 2.0, color: 'rgba(201, 160, 61, 0.30)', width: 1.6, fill: true,  glow: false },
+                    { yRatio: 0.44, amp: 96, freq: 0.0032, speed: 0.013, phase: 0.7, color: 'rgba(201, 160, 61, 0.55)', width: 2.2, fill: true,  glow: true  },
+                    { yRatio: 0.53, amp: 88, freq: 0.0040, speed: 0.010, phase: 3.1, color: 'rgba(235, 206, 128, 0.34)', width: 1.5, fill: false, glow: false },
+                    { yRatio: 0.62, amp: 102, freq: 0.0024, speed: 0.008, phase: 4.2, color: 'rgba(225, 226, 238, 0.17)', width: 1.3, fill: false, glow: false },
+                    { yRatio: 0.71, amp: 78, freq: 0.0038, speed: 0.012, phase: 1.9, color: 'rgba(201, 160, 61, 0.38)', width: 1.8, fill: true,  glow: true  },
+                    { yRatio: 0.80, amp: 66, freq: 0.0030, speed: 0.009, phase: 5.0, color: 'rgba(201, 160, 61, 0.22)', width: 1.2, fill: false, glow: false },
+                    { yRatio: 0.89, amp: 48, freq: 0.0046, speed: 0.014, phase: 2.8, color: 'rgba(225, 226, 238, 0.12)', width: 1.0, fill: false, glow: false }
+                ];
+
+                // Partículas / nodos de IA distribuidos por toda la pantalla del Hero
+                const particles = Array.from({ length: 30 }, (_, i) => ({
+                    x: (i * 0.6180339887) % 1,
+                    y: ((i * 0.3819660113) + 0.08) % 0.86 + 0.07,
+                    vx: (i % 2 === 0 ? 1 : -1) * (0.00018 + (i % 5) * 0.00005),
+                    vy: (i % 3 === 0 ? 1 : -1) * (0.00012 + (i % 4) * 0.00004),
+                    r: 1.5 + (i % 3) * 0.7,
+                    gold: i % 3 !== 0
+                }));
+
+                function resize() {
+                    const rect = heroStage.getBoundingClientRect();
+                    width = rect.width;
+                    height = rect.height;
+                    dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    canvas.width = Math.floor(width * dpr);
+                    canvas.height = Math.floor(height * dpr);
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    if (prefersReducedMotion) drawFrame(1.2);
+                }
+
+                function waveY(wave, x, t, energyScale) {
+                    const nx = x / width;
+                    // Cobertura panorámica: suave en la zona izquierda del texto y expansiva hacia el centro-derecha
+                    const envelope = 0.42 + 0.68 * Math.sin(nx * Math.PI * 0.92 + 0.15) * (0.65 + 0.55 * nx);
+                    const pointerShift = (pointerY - 0.5) * 34 * (0.4 + 0.6 * nx);
+                    const primary = Math.sin(x * wave.freq + t * wave.speed * 58 + wave.phase + (pointerX - 0.5) * 0.9);
+                    const harmonic = 0.38 * Math.sin(x * wave.freq * 2.1 - t * wave.speed * 40 + wave.phase * 1.6);
+                    const sub = 0.18 * Math.cos(x * wave.freq * 0.55 + t * 0.45 + wave.phase);
+                    return height * wave.yRatio + pointerShift + (primary + harmonic + sub) * wave.amp * envelope * energyScale;
+                }
+
+                function drawFrame(t) {
+                    ctx.clearRect(0, 0, width, height);
+
+                    const energyScale = width < 640 ? 0.62 : 1.0;
+
+                    // 1. Espectro armónico panorámico de ancho completo (de borde a borde)
+                    const barCount = width < 640 ? 34 : 68;
+                    const barSpacing = width / barCount;
+                    const centerY = height * 0.52;
+                    for (let i = 0; i < barCount; i++) {
+                        const bx = i * barSpacing + barSpacing * 0.5;
+                        const nx = i / barCount;
+                        // Más intensidad hacia el centro-derecha, presencia sutil en la izquierda
+                        const lateralWeight = 0.35 + 0.85 * Math.pow(nx, 0.9);
+                        const edgeFade = Math.sin(nx * Math.PI);
+                        const pulse = 0.38 + 0.62 * Math.sin(t * 1.45 + i * 0.36) * Math.cos(t * 0.72 - i * 0.18);
+                        const barH = (36 + height * 0.34 * edgeFade * lateralWeight * Math.abs(pulse)) * energyScale;
+                        const alpha = (0.045 + 0.13 * edgeFade * lateralWeight) * (width < 640 ? 0.65 : 1);
+
+                        const grad = ctx.createLinearGradient(bx, centerY - barH, bx, centerY + barH);
+                        grad.addColorStop(0, 'rgba(201, 160, 61, 0)');
+                        grad.addColorStop(0.5, `rgba(201, 160, 61, ${alpha.toFixed(3)})`);
+                        grad.addColorStop(1, 'rgba(201, 160, 61, 0)');
+
+                        ctx.fillStyle = grad;
+                        ctx.fillRect(bx, centerY - barH, 2.2, barH * 2);
+                    }
+
+                    // 2. Red sutil de nodos de IA cubriendo toda el área del Hero
+                    const maxLinkDist = width < 640 ? 110 : 175;
+                    const pts = particles.map((p) => {
+                        const px = ((p.x + t * p.vx * 60) % 1 + 1) % 1;
+                        const py = ((p.y + t * p.vy * 60) % 0.88 + 0.88) % 0.88 + 0.06;
+                        return { x: px * width, y: py * height, r: p.r, gold: p.gold };
+                    });
+
+                    ctx.lineWidth = 0.8;
+                    for (let i = 0; i < pts.length; i++) {
+                        for (let j = i + 1; j < pts.length; j++) {
+                            const dx = pts[i].x - pts[j].x;
+                            const dy = pts[i].y - pts[j].y;
+                            const dist = Math.hypot(dx, dy);
+                            if (dist < maxLinkDist) {
+                                const alpha = (1 - dist / maxLinkDist) * 0.13;
+                                ctx.strokeStyle = `rgba(201, 160, 61, ${alpha.toFixed(3)})`;
+                                ctx.beginPath();
+                                ctx.moveTo(pts[i].x, pts[i].y);
+                                ctx.lineTo(pts[j].x, pts[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+
+                    pts.forEach((pt) => {
+                        ctx.beginPath();
+                        ctx.arc(pt.x, pt.y, pt.r, 0, Math.PI * 2);
+                        ctx.fillStyle = pt.gold ? 'rgba(225, 185, 86, 0.42)' : 'rgba(220, 224, 240, 0.25)';
+                        ctx.fill();
+                    });
+
+                    // 3. Ondas acústicas panorámicas multicapa con relleno degradado sutil
+                    const step = width < 640 ? 12 : 10;
+                    waves.forEach((wave) => {
+                        ctx.save();
+                        ctx.beginPath();
+                        for (let x = 0; x <= width + step; x += step) {
+                            const y = waveY(wave, x, t, energyScale);
+                            if (x === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+
+                        if (wave.fill) {
+                            ctx.save();
+                            ctx.lineTo(width, height);
+                            ctx.lineTo(0, height);
+                            ctx.closePath();
+                            const fillGrad = ctx.createLinearGradient(0, height * wave.yRatio - 80, 0, height);
+                            fillGrad.addColorStop(0, 'rgba(201, 160, 61, 0.085)');
+                            fillGrad.addColorStop(0.55, 'rgba(201, 160, 61, 0.025)');
+                            fillGrad.addColorStop(1, 'rgba(201, 160, 61, 0)');
+                            ctx.fillStyle = fillGrad;
+                            ctx.fill();
+                            ctx.restore();
+
+                            // Redibujar solo el trazo superior limpio
+                            ctx.beginPath();
+                            for (let x = 0; x <= width + step; x += step) {
+                                const y = waveY(wave, x, t, energyScale);
+                                if (x === 0) ctx.moveTo(x, y);
+                                else ctx.lineTo(x, y);
+                            }
+                        }
+
+                        ctx.strokeStyle = wave.color;
+                        ctx.lineWidth = wave.width;
+                        if (wave.glow) {
+                            ctx.shadowColor = 'rgba(201, 160, 61, 0.55)';
+                            ctx.shadowBlur = 16;
+                        }
+                        ctx.stroke();
+                        ctx.restore();
+                    });
+
+                    // 4. Pulsos luminosos de telemetría recorriendo dos ondas principales
+                    const pulseWaves = [waves[3], waves[6]];
+                    pulseWaves.forEach((pw, wIdx) => {
+                        const nodeCount = width < 640 ? 5 : 10;
+                        for (let n = 0; n < nodeCount; n++) {
+                            const dir = wIdx === 0 ? 1 : -1;
+                            const nx = (((n / nodeCount) + dir * t * (0.024 + wIdx * 0.008)) % 1 + 1) % 1;
+                            const x = nx * width;
+                            const y = waveY(pw, x, t, energyScale);
+                            const fade = Math.sin(nx * Math.PI);
+
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.arc(x, y, 2.8, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(242, 210, 118, ${(0.85 * fade).toFixed(3)})`;
+                            ctx.shadowColor = 'rgba(201, 160, 61, 0.9)';
+                            ctx.shadowBlur = 14;
+                            ctx.fill();
+                            ctx.restore();
+                        }
+                    });
+                }
+
+                function tick() {
+                    if (!isHeroVisible) return;
+                    time += 0.016;
+                    pointerX += (targetPointerX - pointerX) * 0.04;
+                    pointerY += (targetPointerY - pointerY) * 0.04;
+                    drawFrame(time);
+                    animId = requestAnimationFrame(tick);
+                }
+
+                heroStage.addEventListener('pointermove', (e) => {
+                    const rect = heroStage.getBoundingClientRect();
+                    targetPointerX = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                    targetPointerY = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+                }, { passive: true });
+
+                window.addEventListener('resize', resize, { passive: true });
+                resize();
+
+                if (!prefersReducedMotion) {
+                    const heroVisibilityObserver = new IntersectionObserver((entries) => {
+                        isHeroVisible = entries[0].isIntersecting;
+                        if (isHeroVisible && !animId) {
+                            animId = requestAnimationFrame(tick);
+                        } else if (!isHeroVisible && animId) {
+                            cancelAnimationFrame(animId);
+                            animId = null;
+                        }
+                    }, { threshold: 0.05 });
+
+                    heroVisibilityObserver.observe(heroStage);
+                    animId = requestAnimationFrame(tick);
+                }
+            }
+
+            // ── Módulos Vivos de #platform: Spotlight de borde + Tilt 3D + Canvas Audio DSP ──
+            const platformGrid = document.getElementById('platformGrid');
+            const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            if (platformGrid && finePointer && !prefersReducedMotion) {
+                const platformCards = platformGrid.querySelectorAll('.platform-card');
+
+                platformGrid.addEventListener('pointermove', (e) => {
+                    platformCards.forEach((card) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.setProperty('--mx', `${x}px`);
+                        card.style.setProperty('--my', `${y}px`);
+                    });
+                }, { passive: true });
+
+                platformCards.forEach((card) => {
+                    card.addEventListener('pointermove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const nx = (e.clientX - rect.left) / rect.width - 0.5;
+                        const ny = (e.clientY - rect.top) / rect.height - 0.5;
+                        const rotY = (nx * 5.5).toFixed(2);
+                        const rotX = (-ny * 5.5).toFixed(2);
+                        card.style.transform = `translateY(-3px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                    }, { passive: true });
+
+                    card.addEventListener('pointerleave', () => {
+                        card.style.transform = '';
+                    });
+                });
+            }
+
+            // Canvas DSP en tiempo real para la tarjeta "Software y Plugins de Audio"
+            const audioCanvas = document.getElementById('audioModuleCanvas');
+            const audioCard = document.getElementById('audioModuleCard');
+            if (audioCanvas && audioCard) {
+                const actx = audioCanvas.getContext('2d');
+                let aw = 0;
+                let ah = 0;
+                let aTime = 0;
+                let aEnergy = 0.55;
+                let aTargetEnergy = 0.55;
+                let aVisible = false;
+                let aAnimId = null;
+
+                function resizeAudioCanvas() {
+                    const rect = audioCanvas.parentElement.getBoundingClientRect();
+                    aw = rect.width;
+                    ah = rect.height;
+                    const adpr = Math.min(window.devicePixelRatio || 1, 2);
+                    audioCanvas.width = Math.floor(aw * adpr);
+                    audioCanvas.height = Math.floor(ah * adpr);
+                    actx.setTransform(adpr, 0, 0, adpr, 0, 0);
+                    if (prefersReducedMotion) drawAudioFrame(1.4);
+                }
+
+                function drawAudioFrame(t) {
+                    actx.clearRect(0, 0, aw, ah);
+                    const cy = ah * 0.58;
+                    const bars = 26;
+                    const padX = 20;
+                    const usableW = aw - padX * 2;
+                    const stepX = usableW / bars;
+
+                    // 1. Barras EQ / Spectrum reactivas
+                    for (let i = 0; i < bars; i++) {
+                        const nx = i / (bars - 1);
+                        const bell = Math.sin(nx * Math.PI);
+                        const wave = Math.abs(Math.sin(t * 2.8 + i * 0.48) * Math.cos(t * 1.4 - i * 0.25));
+                        const h = (5 + 34 * bell * wave * aEnergy);
+                        const x = padX + i * stepX + stepX * 0.25;
+                        const bw = Math.max(2, stepX * 0.45);
+                        actx.fillStyle = `rgba(201, 160, 61, ${(0.22 + 0.52 * wave * aEnergy).toFixed(3)})`;
+                        actx.fillRect(x, cy - h, bw, h * 2);
+                    }
+
+                    // 2. Onda de fase DSP superpuesta
+                    actx.beginPath();
+                    for (let x = padX; x <= aw - padX; x += 3) {
+                        const nx = (x - padX) / usableW;
+                        const env = Math.sin(nx * Math.PI);
+                        const y = cy + Math.sin(nx * 14 + t * 4.5) * 16 * env * aEnergy
+                            + Math.sin(nx * 29 - t * 3.1) * 6 * env * aEnergy;
+                        if (x === padX) actx.moveTo(x, y);
+                        else actx.lineTo(x, y);
+                    }
+                    actx.strokeStyle = '#f0ce71';
+                    actx.lineWidth = 1.6;
+                    actx.shadowColor = 'rgba(201, 160, 61, 0.75)';
+                    actx.shadowBlur = 8;
+                    actx.stroke();
+                    actx.shadowBlur = 0;
+                }
+
+                function tickAudio() {
+                    if (!aVisible) return;
+                    aTime += 0.018;
+                    aEnergy += (aTargetEnergy - aEnergy) * 0.08;
+                    drawAudioFrame(aTime);
+                    aAnimId = requestAnimationFrame(tickAudio);
+                }
+
+                audioCard.addEventListener('pointerenter', () => { aTargetEnergy = 1.15; });
+                audioCard.addEventListener('pointerleave', () => { aTargetEnergy = 0.55; });
+                window.addEventListener('resize', resizeAudioCanvas, { passive: true });
+                resizeAudioCanvas();
+
+                if (!prefersReducedMotion) {
+                    const audioObs = new IntersectionObserver((entries) => {
+                        aVisible = entries[0].isIntersecting;
+                        if (aVisible && !aAnimId) {
+                            aAnimId = requestAnimationFrame(tickAudio);
+                        } else if (!aVisible && aAnimId) {
+                            cancelAnimationFrame(aAnimId);
+                            aAnimId = null;
+                        }
+                    }, { threshold: 0.05 });
+                    audioObs.observe(audioCard);
+                }
+            }
+
+            // ── Consola Interactiva Split-View de #solutions ──
+            const solConsole = document.getElementById('solutionsConsole');
+            if (solConsole) {
+                const solRows = Array.from(solConsole.querySelectorAll('.sol-row'));
+                const solScenes = Array.from(solConsole.querySelectorAll('.sol-scene'));
+                const solDots = Array.from(solConsole.querySelectorAll('.sol-stage-dot'));
+                const solChannelEl = document.getElementById('solStageChannel');
+                const solCaptionEl = document.getElementById('solStageCaption');
+                let activeSol = 0;
+                let solTimer = null;
+                let solPaused = false;
+                let solInView = false;
+
+                function syncCaption() {
+                    const row = solRows[activeSol];
+                    if (row && solCaptionEl) {
+                        const titleEl = row.querySelector('.sol-title');
+                        if (titleEl) solCaptionEl.textContent = titleEl.textContent.trim();
+                    }
+                }
+
+                function setActiveSolution(idx, restartCycle = true) {
+                    activeSol = (idx + solRows.length) % solRows.length;
+                    solRows.forEach((row, i) => {
+                        const isActive = i === activeSol;
+                        row.classList.toggle('active', isActive);
+                        row.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                        row.classList.remove('is-cycling', 'is-paused');
+                        if (isActive) {
+                            void row.offsetWidth; // reinicia animación CSS de la barra de progreso
+                            if (!prefersReducedMotion && !solPaused && solInView) {
+                                row.classList.add('is-cycling');
+                            } else {
+                                row.classList.add('is-paused');
+                            }
+                        }
+                    });
+                    solScenes.forEach((scene, i) => scene.classList.toggle('active', i === activeSol));
+                    solDots.forEach((dot, i) => dot.classList.toggle('active', i === activeSol));
+                    const activeRow = solRows[activeSol];
+                    if (activeRow && solChannelEl) {
+                        solChannelEl.textContent = activeRow.dataset.channel || '';
+                    }
+                    syncCaption();
+
+                    if (restartCycle) startSolAutoCycle();
+                }
+
+                function startSolAutoCycle() {
+                    clearInterval(solTimer);
+                    if (prefersReducedMotion || solPaused || !solInView) return;
+                    solTimer = setInterval(() => {
+                        setActiveSolution(activeSol + 1, false);
+                    }, 6000);
+                }
+
+                function pauseSolCycle() {
+                    solPaused = true;
+                    clearInterval(solTimer);
+                    const row = solRows[activeSol];
+                    if (row) {
+                        row.classList.remove('is-cycling');
+                        row.classList.add('is-paused');
+                    }
+                }
+
+                function resumeSolCycle() {
+                    solPaused = false;
+                    setActiveSolution(activeSol, true);
+                }
+
+                solRows.forEach((row, idx) => {
+                    row.addEventListener('click', () => setActiveSolution(idx, true));
+                    if (finePointer) {
+                        row.addEventListener('mouseenter', () => {
+                            if (activeSol !== idx) setActiveSolution(idx, false);
+                        });
+                    }
+                    row.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            const next = (idx + 1) % solRows.length;
+                            setActiveSolution(next, true);
+                            solRows[next].focus();
+                        } else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            const prev = (idx - 1 + solRows.length) % solRows.length;
+                            setActiveSolution(prev, true);
+                            solRows[prev].focus();
+                        }
+                    });
+                });
+
+                solConsole.addEventListener('pointerenter', pauseSolCycle);
+                solConsole.addEventListener('pointerleave', resumeSolCycle);
+                solConsole.addEventListener('focusin', pauseSolCycle);
+                solConsole.addEventListener('focusout', (e) => {
+                    if (!solConsole.contains(e.relatedTarget)) resumeSolCycle();
+                });
+
+                // Mantener sincronizado el caption al cambiar idioma ES/EN
+                document.querySelectorAll('.lang-btn').forEach((btn) => {
+                    btn.addEventListener('click', () => setTimeout(syncCaption, 180));
+                });
+
+                // Solo auto-ciclar cuando #solutions esté visible
+                const solObs = new IntersectionObserver((entries) => {
+                    solInView = entries[0].isIntersecting;
+                    if (solInView && !solPaused) {
+                        setActiveSolution(activeSol, true);
+                    } else {
+                        clearInterval(solTimer);
+                    }
+                }, { threshold: 0.25 });
+                solObs.observe(solConsole);
+            }
+
+            // ── Lógica del Sidebar Móvil ──
             const menuToggle = document.getElementById('menuToggle');
             const sidebarClose = document.getElementById('sidebarClose');
             const mobileSidebar = document.getElementById('mobileSidebar');
@@ -1134,43 +3300,52 @@
             function openSidebar() {
                 mobileSidebar.classList.add('active');
                 sidebarOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+                mobileSidebar.setAttribute('aria-hidden', 'false');
+                mobileSidebar.removeAttribute('inert');
+                if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+                if (sidebarClose) sidebarClose.focus();
             }
 
-            function closeSidebar() {
+            function closeSidebar(restoreFocus = false) {
                 mobileSidebar.classList.remove('active');
                 sidebarOverlay.classList.remove('active');
+                mobileSidebar.setAttribute('aria-hidden', 'true');
+                mobileSidebar.setAttribute('inert', '');
+                if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
+                if (restoreFocus && menuToggle) menuToggle.focus();
             }
 
             if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-            if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-            if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+            if (sidebarClose) sidebarClose.addEventListener('click', () => closeSidebar(true));
+            if (sidebarOverlay) sidebarOverlay.addEventListener('click', () => closeSidebar(true));
 
-            // Cerrar sidebar cuando se hace click en algún enlace
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', closeSidebar);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileSidebar.classList.contains('active')) {
+                    closeSidebar(true);
+                }
             });
 
-            // Highlight elements on scroll for mobile devices
-            if (window.innerWidth <= 800) {
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => closeSidebar(false));
+            });
+
+            // Resaltado sutil en scroll para dispositivos móviles (sin saltos de layout)
+            if (window.innerWidth <= 768 && !prefersReducedMotion) {
                 const observerOptions = {
                     root: null,
-                    rootMargin: '-30% 0px -40% 0px', // Trigger near the center of the viewport
+                    rootMargin: '-30% 0px -40% 0px',
                     threshold: 0
                 };
 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('scroll-hover');
-                        } else {
-                            entry.target.classList.remove('scroll-hover');
-                        }
+                        entry.target.classList.toggle('scroll-hover', entry.isIntersecting);
                     });
                 }, observerOptions);
 
-                const elementsToObserve = document.querySelectorAll('.card, .badge, .client-item, .not-card, .tech-badge, .highlight-block');
+                const elementsToObserve = document.querySelectorAll('.card, .highlight-block');
                 elementsToObserve.forEach(el => observer.observe(el));
             }
         });
